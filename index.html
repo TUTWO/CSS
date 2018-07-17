@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>(runoob.com)</title>
+<style>
+	body {
+		font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size:12px;
+	}
+	#nav1 {
+		height: 50px;
+		width: 100%;
+		margin: 0 0 1px 0;
+	}
+	#nav2 {
+		height: 50px;
+		width: 100%;
+	}
+	#header {
+		height:15%;
+		width: 100%;
+		margin:0 0 10px 0; 
+		float:left;
+		font-size:12px;
+		border-bottom:1px solid #DDDDDD;
+	}
+	#left {
+		height:500px;
+		width: 25%;
+		background-color: #E5EECC;
+		margin:0 0 10px 0;
+		float:left;
+	}
+	#right {
+		height:500px;
+		width:75%;
+		background-color:#8FCD7E;
+		margin:0 0 10px 0;
+		float:right;
+		position:relative;
+		left:5px;
+	}
+	#footer {
+		height:100px;
+		width:100%;
+		background-color: #96B97D;
+		float:left;
+	}
+	
+	div a {
+		height:40px;
+		display:block;
+		position:relative;
+		float:left;
+		text-align: center;
+		text-decoration: none;
+		line-height: 40px;
+		padding: 0px 10px 0px 10px;
+		color: #337AB7;
+	}
+	div a:hover {
+		background-color: #EEEEEE;
+		border-radius: 5px 5px 0 0;
+		border-bottom: 0.05em solid #DDDDDD;
+		color:#2352A1;
+	}
+	div a:active {
+		border:1px solid #9DBFF6;
+		color:#23527C;
+	}
+	div a.active {
+		border-radius: 5px 5px 0 0;
+		border-top:1px solid #DDDDDD;
+    	border-right:1px solid #DDDDDD;
+    	border-left:1px solid #DDDDDD;
+		color:black;
+		background-color: white;
+		border-bottom:none;
+	}
+	.btn-info {
+		background-color:#5BC0DE;
+		height: 35px;
+		border: none;
+		border-radius: 4px;
+		text-align: center;
+		color: white;
+		padding:0 20px 0 0px;
+	}
+	.btn-info:hover {
+		background-color:#31B0D5;
+	}
+</style>
+</head>
+
+<body>
+	<div id="header">
+		<div id="nav1">
+			<div id="extent"><a href="#">Extent | Zoom</a></div>
+			<div id="shape"><a href="#">Draw Shape</a></div>
+			<div id="symbol"><a class="active" href="#">Draw Symbol</a></div>
+			<div id="pin"><a href="#">Draw Pin</a></div>
+			<div id="shapes"><a href="#">WKT Shapes</a></div>
+			<div id="controls"><a href="#">Controls Visibility</a></div>
+			<div id="gps"><a href="#">GPS</a></div>
+			<div id="others"><a href="#">Others</a></div>
+		</div>
+		<div id="nav2">
+			<div id="extent-t">
+				<button class="btn-info">Zoom to all shapes</button>
+				<select></select>
+				<button class="btn-info">Set zoom and center</button>
+				<input>
+				<button class="btn-info">Set extent</button>
+			</div>
+			<div id="shape-t"></div>
+			<div id="symbol-t"></div>
+			<div id="pin-t"></div>
+			<div id="shapes-t"></div>
+			<div id="controls-t"></div>
+			<div id="gps-t"></div>
+			<div id="others-t"></div>
+		</div>
+	 </div>
+	<div id="main">
+		<div id="left"></div>
+		<div id="right"></div>
+	</div>
+	
+	<div id="footer"></div>
+</body>
+</html>
