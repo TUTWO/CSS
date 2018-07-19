@@ -158,11 +158,33 @@
 				second.appendChild(image1);
 				second.appendChild(image2);
 				second.className="addnew";
-
-				var element = document.getElementById("leftPanelDiv");
+				var element = document.getElementById("leftPanelDiv1");
 				element.appendChild(second);
 				
 	}
+			function getIndex(){
+				var ul = document.getElementById("leftPanelDiv1");
+				var ul_child = ul.getElementsByClassName("addnew");
+				
+				for (var i = ul_child.length-1 ; i >= 0 ; i--) {
+					ul_child[i].index = i;
+					ul_child[i].onclick = function(){
+					var j = this.index;
+					// alert(this.index);
+					num=this.index;
+					}
+				}
+				var deleteItems=document.getElementById("leftPanelDiv1");
+				deleteItems.removeChild(deleteItems.childNodes[num]);
+				for (var i = ul_child.length-1 ; i >= 0 ; i--) {
+					ul_child[i].index = i;
+					ul_child[i].onclick = function(){
+					var j = this.index;
+					// alert(this.index);
+					num=this.index;
+					}
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -262,6 +284,7 @@
 		<div id="left">
 			<div class="scrollbar" id="leftPanelDiv">
 				<h4 style="font-size: 18px; margin:20px 0 0 10px; font-weight:500;">Legend Items:</h4>
+				<div id="leftPanelDiv1" onclick="getIndex()"></div>
 			</div>
 		</div>
 		<div id="right">
