@@ -62,7 +62,59 @@
     var mapMessage = { "topic": "request", "data": { "commandName": "initializeMap", "mapId": "map", "initializeConfigs": { "sourceProjection": "EPSG:4326", "mapProjection": "EPSG:4326", "layerSwitcher": [{ "name": "Base Maps", "type": "radio", "layers": [{ "name": "Hybrid", "relatedLayers": ["Satellite", "RoadMap"], "checked": true }, { "name": "Satellite", "relatedLayers": ["Satellite"] }, { "name": "Grid Pad", "relatedLayers": ["GridPad"] }, { "name": "Roads", "relatedLayers": ["RoadLayer"] }] }], "loadedLayers": ["Satellite", "RoadLayer", "RoadMap", "Plats", "GridPad", "Gps Track", "Gps LineLayer", "Pins", "EditOverlay", "SymbolAndLabel"], "editLayer": "EditOverlay", "editSymbolLabelLayer": "SymbolAndLabel", "selectionExclude": [], "allowedLayers": ["Satellite", "RoadLayer", "GridPad", "Aerial"], "backgroundColor": "#d3d3d3", "allowedControls": ["PanZoomBar", "MousePosition"], "groupingConfig": { "EnableGrouping": false, "MaximumShape": 20, "MaximumTiedown": 2 }, "drawStyle": { "fillColor": "#FFFFFF", "fillOpacity": 0.5, "strokeColor": "#0099FF", "strokeDashstyle": "solid", "strokeOpacity": 0.5, "strokeWidth": 1, "pointRadius": 6, "strokeLinecap": "square" }, "labelPlacementSetting": { "ajustForceDisplayItemOption": { "flip": true, "slide": true }, "ajustForceDisplayItemToPervertOverlap": true, "identicalShapeLengthProximityThresholdInFeet": 3, "identicalShapeLengthProximityThresholdInPixel": 7, "identicalShapeLengthProximityType": "Pixel", "identifyLabelAdjustPolylineLabel": true, "identifyLabelIgnoreValue": true, "shrinkXPixelForLabelToCaculateOverLap": 0 } } } };
     postMessage(mapMessage, "*");
 
-    setTimeout(()=>{
-        postMessage({topic:"request",data:{ commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 }},"*");
-    },1000);
+    setTimeout(() => {
+        postMessage({ topic: "request", data: { commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 } }, "*");
+    }, 1000);
+
+    document.getElementById("setZoom").addEventListener("click", sendZoomMessage);
+    function sendZoomMessage() {
+        var zoom = document.getElementById("zoomNum").value;
+        if (!document.getElementById("point").value || !zoom) {
+            return alert("No data!");
+        } else {
+            var center = document.getElementById("point").value.split(",");
+            if (center.length != 2) {
+                return alert("Wrong Data!");
+            }
+            else {
+                sendMessages({
+                    commandName: 'setExtent',
+                    zoomLevel: zoom,
+                    centerPoint: {
+                        x: +center[0],
+                        y: +center[1]
+                    }
+                });
+            }
+        }
+    }
+
+    document.getElementById("setExtent").addEventListener("click", sendExtentMessage);
+    function sendExtentMessage() {
+        if (document.getElementById("extents").value) {
+            var extent = document.getElementById("extents").value;
+            if (extent) {
+                sendMessages({
+                    commandName: 'setExtent',
+                    extent: extent
+                });
+            }
+        } else {
+            return alert("No data!");
+        }
+
+    }
+    function sendMessages(data) {
+        postMessage({ topic: "request", data }, "*");
+
+    }
+
+    document.getElementById("point").addEventListener("oninput", function () {
+        var inputData = document.getElementById("point").value;
+        alert("change");
+        if (inputData) {
+            document.getElementById("inputPoint").innerHTML = inputData.value;
+        }
+    });
+
 }()
