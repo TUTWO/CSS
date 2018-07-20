@@ -94,22 +94,22 @@ div.tab button:focus {
     width: 100%;
     overflow-y: scroll;
 }	
-.addnew {
+.add-new {
     margin: 0px 0 0px 0;
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
 }
-.addnew input{
+.add-new input{
     height: 40px;
 }
-.addnew span {
+.add-new span {
     font-size: 17px;
     font-weight: 500px;
     margin: 0 0 0 20px;
     position: relative;
     top:-15px;
 }
-.addnew img {
+.add-new img {
     padding:10px 0 0 20px;
     float:right;
 }

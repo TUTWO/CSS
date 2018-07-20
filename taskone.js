@@ -7,7 +7,6 @@
                 break;
             }
         }
-        menu += 1;
         document.getElementById(menu).style.display = "block";
     }
     function addItems() {
@@ -15,7 +14,7 @@
         radio.type = "checkbox";
 
         var label = document.createElement("span");
-        var labeltext = document.createTextNode(changeText());
+        var labeltext = document.createTextNode(getData());
         label.appendChild(labeltext);
 
         var image1 = document.createElement("img");
@@ -44,7 +43,7 @@
     function deleteItem(evt) {
         evt.target.parentElement.remove();
     }
-    function changeText(evt) {
+    function getData(evt) {
         var nowTime = new Date();
         return nowTime.toLocaleTimeString();
     }
