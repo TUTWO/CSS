@@ -54,6 +54,7 @@ div.tab button:focus {
     color: white;
     padding:0 10px 0 10px;
     margin:0px 15px 0px 20px;
+    cursor: pointer;
 }
 .tabcontent span {
     margin: 20px 10px 0 50px; 
@@ -75,7 +76,7 @@ div.tab button:focus {
 }
 #left {
     height:1000px;
-    width:25%;
+    width:21%;
     margin:30px 0 0 0;
     float:left;
     border-top:1px solid grey;
@@ -83,7 +84,7 @@ div.tab button:focus {
 }
 #map {
     height:1000px;
-    width:74%;
+    width:79%;
     background-color:grey;
     margin:30px 0 0 0;
     float:right;

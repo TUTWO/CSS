@@ -10,14 +10,14 @@
 
 <body>
 	<div class="tab" id="tabdiv">
-			<button class="tablinks" name="extent">Extent | Zoom</button>
-			<button class="tablinks" name="shape">Draw Shape</button>
-			<button class="tablinks" name="symbol">Draw Symbol</button>
-			<button class="tablinks" name="pin">Draw Pin</button>
-			<button class="tablinks" name="shapes">WKT Shapes</button>
-			<button class="tablinks" name="controls">Controls Visibility</button>
-			<button class="tablinks" name="gps">GPS</button>
-			<button class="tablinks" name="others">Others</button>
+		<button class="tablinks" name="extent">Extent | Zoom</button>
+		<button class="tablinks" name="shape">Draw Shape</button>
+		<button class="tablinks" name="symbol">Draw Symbol</button>
+		<button class="tablinks" name="pin">Draw Pin</button>
+		<button class="tablinks" name="shapes">WKT Shapes</button>
+		<button class="tablinks" name="controls">Controls Visibility</button>
+		<button class="tablinks" name="gps">GPS</button>
+		<button class="tablinks" name="others">Others</button>
 	</div>
 	<div id="nav2">
 		<div id="extent" class="tabcontent">
@@ -43,10 +43,12 @@
 				<option value="18">18</option>
 				<option value="19">19</option>
 			</select>
-			<input id="point" value="-77.02631, 38.89214">
-			<label id="inputPoint" style="color: red;"></label>
+			<input id="point" value="-77.02631,38.89214" placeholder="-77.02631,38.89214">
+			<span id="inputPoint" style="color: red; margin:0 10px 0 10px;"></span>
 			<button id="setZoom">Set zoom and center</button>
-			<input id="extents" value="26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524" style="width: 300px;">
+			<input id="extents" value="26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524" style="width: 300px;"
+			 placeholder="26.474,41.203,27.9384,41.84">
+			<span id="inputExtent" style="color: red; margin:0 10px 0 10px;"></span>
 			<button id="setExtent">Set extent</button>
 		</div>
 		<div id="shape" class="tabcontent">
@@ -54,7 +56,9 @@
 			<button>Draw</button>
 			<button>Slice</button>
 			<span>Stroke:</span>
+			<input type="color" value="blue">
 			<span>Fill:</span>
+			<input type="color">
 			<span>Stroke Width:</span>
 			<input type="number" min="1" max="10" value="3">
 		</div>
@@ -69,7 +73,6 @@
 			 style="cursor: pointer; border: 1px solid rgb(70, 184, 218); margin-left: 30px; float: left;">
 			<img title="Symbol With Label" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMjHxIGmVAAACk0lEQVRYR+2XT4hNURzHr3+Dhf8yZBrvDSXExkbElJSlspGNUCT/IiUL9SImyqTU3DcvY2GMzRQl7JBkYWFFSlFKioWoKQt/fz7f++6ZjuuNuec9z8q3Pt1zfud0f997zu/ed16UQ2NhPZyESxDDXmiDpms7HIZnYBm+wbsReAP3YRuMgbrUCkOgZHegCz6k/RAGQasYrD3g30hP3AfaBrX9sdewBlalrIVT8BU0rlUM0niogJ76MfjJtAqK3/ViYgdkdQg09irpBWoObIQBOA1vwU+ouijBy7T/CLKaBW7+FAVCpC2QJsBB0PL3wGdwNxW34Bx8hEngS303b7YCoToAE2Ec6AbdcB5ugG/iC+j1nAu+GjYwOb0eh6mwDlbAZVCRPQGXQIW5DHw1bGAmLK82oxnQUW1G82AzqD7OwHu4AFk1bKAI7dVmtBLmg2pCH6gWWATH4CxMh6waNuBLy6vX00mGllSbiala+qsGfOkN0QrsB99UVk0zoHqQRnu3m2Ygr/4bqM/A0kFrKZTtQbFsz7k+Lca2IR0KVX0GOsq2leTmoV/GelSfgUJs15SYpx9KDehLV4/CDXRUbFqa1FiJo66NmU3plBCFG2C/d7qkST9tQ38yIUzhBlj+20rI9XrSL9vVxEBsnzpL9qevXi2FGShetFb3xIUe61RsYcVWD8d6bUsyMb8CDcS2bzhZbANwhXa/i4FOuCEKNnDPS1aL74v7LORsl9/AgrIVXCKqP2bvdzkwdsKNMU9ngbzKb4AkR5IkFFsa+kUYeaFxrjfTUB7lN8B+P0wSxKbT72+iALsSg71mbd3mzoqjKawG2iums96ISsZLFvI3K8xAE6Sj2g+QgVpnxn+i3aD/FzUURT8ByB1xzq7G4G8AAAAASUVORK5CYII="
 			 style="cursor: pointer; border: 1px solid rgb(70, 184, 218); margin-left: 30px; float: left;">
-			<button style="float:left; margin: 0 0 0 30px;" id="addItems">Add Items</button>
 		</div>
 		<div id="pin" class="tabcontent">
 			<span>Popup Content Type:</span>
@@ -121,8 +124,10 @@
 	</div>
 	<div id="left">
 		<div class="scrollbar" id="leftPanelDiv">
-			<h4 style="font-size: 18px; margin:20px 0 0 10px; font-weight:500;">Legend Items:</h4>
-			<div id="leftPanelDiv1"></div>
+			<h4 style="font-size: 18px; margin:20px 0 0 10px; font-weight:500; float: left;">Legend Items:</h4>
+			<img id="deleteAll" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfiBgcIAhXUNwrhAAAAgklEQVQ4y6WUyQ3AIAwER3mlPvqglq2INmgn+UQICDhaxbywZ8XhA04ylUIiskShkjkhcz1LW1yNyVDbZidRR1Qo3XYl0RAvkAbHLNEUTSuntrjigKKz38EQX0k+8FiyzZA8fC2Z8INfZl7JfLT5rWbizNIwi88ub7uB7Ba1h4A5Zm48IyvwiWCRJwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wNi0wN1QwODowMjoyMSswMjowMLOyTbsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDYtMDdUMDg6MDI6MjErMDI6MDDC7/UHAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAABJRU5ErkJggg=="
+			title="Clear All" style="cursor: pointer; border: 1px solid rgb(70, 184, 218); float: right; margin: 20px 10px 0 0; display: none;">
+			<div id="leftPanelDiv1" style="margin: 50px 0 0 0;"></div>
 		</div>
 	</div>
 	<div id="map"></div>
