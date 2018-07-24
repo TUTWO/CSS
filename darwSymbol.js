@@ -1,5 +1,5 @@
 
-document.getElementById("symbol").addEventListener("click", (evt)=>{
+document.getElementById("symbol").addEventListener("click", (evt) => {
     var labelStyle = evt.style;
     sendMessages({
         commandName: 'drawSymbol',
@@ -15,7 +15,7 @@ function reciveMessage(evt) {
     }
 };
 
-document.getElementById("deleteAll").addEventListener("click", (evt)=>{
+document.getElementById("deleteAll").addEventListener("click", (evt) => {
     let len = document.getElementsByClassName("add-new").length;
     for (let i = len - 1; i >= 0; i--) {
         sendMessages({ commandName: "deleteShapes", featureIds: [document.getElementsByClassName("add-new")[i].id] });

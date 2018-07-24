@@ -1,12 +1,12 @@
 
-document.getElementById("setZoom").addEventListener("click", ()=>{
+document.getElementById("setZoom").addEventListener("click", () => {
     let zoom = document.getElementById("zoomNum").value;
     if (!document.getElementById("point").value || !zoom) {
-        return ;
+        return;
     } else {
         let center = document.getElementById("point").value.split(",");
         if (center.length !== 2) {
-            return ;
+            return;
         }
         else {
             let [x, y] = center;
@@ -23,7 +23,7 @@ document.getElementById("setZoom").addEventListener("click", ()=>{
 });
 
 
-document.getElementById("setExtent").addEventListener("click", ()=>{
+document.getElementById("setExtent").addEventListener("click", () => {
     if (document.getElementById("extents").value) {
         let extent = document.getElementById("extents").value;
         if (extent) {
@@ -33,12 +33,12 @@ document.getElementById("setExtent").addEventListener("click", ()=>{
             });
         }
     } else {
-        return ;
+        return;
     }
 });
 
 
-document.getElementById("extents").addEventListener("keyup", ()=>{
+document.getElementById("extents").addEventListener("keyup", () => {
     let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;         //march four decimals
     let text = document.getElementById("extents").value;
     if (text) {
@@ -53,7 +53,7 @@ document.getElementById("extents").addEventListener("keyup", ()=>{
     }
 });
 
-document.getElementById("point").addEventListener("keyup",()=>{
+document.getElementById("point").addEventListener("keyup", () => {
     let re = /(-?\d+\.?\d*\,)(-?\d+\.?\d*)/;            //march two decimals
     let text = document.getElementById("point").value;
     if (text) {
@@ -69,7 +69,7 @@ document.getElementById("point").addEventListener("keyup",()=>{
 });
 
 document.getElementById("extents").addEventListener("blur", checkInput);
-document.getElementById("point").addEventListener("blur",checkInput);
+document.getElementById("point").addEventListener("blur", checkInput);
 function checkInput() {
     let text = document.getElementById("point").value;
     if (!text) {

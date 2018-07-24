@@ -105,9 +105,8 @@ div.tab button:focus {
     height: 40px;
 }
 .add-new span {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 500px;
-    margin: 0 0 0 20px;
     position: relative;
     top:-15px;
     cursor: pointer;
