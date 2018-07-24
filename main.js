@@ -1,9 +1,5 @@
 
-document.getElementById("tabdiv").addEventListener("click", function (evt) {
-    openTab(evt);
-});
-
-function openTab(evt) {
+document.getElementById("tabdiv").addEventListener("click", (evt) => {
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
         if (tabcontent[i].style.display === "block") {
@@ -19,5 +15,5 @@ function openTab(evt) {
     }
     document.getElementById(evt.target.name).style.display = "block";
     evt.target.id = "active";
-}
+});
 

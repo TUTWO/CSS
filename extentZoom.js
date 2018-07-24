@@ -1,5 +1,5 @@
 
-function sendZoomMessage() {
+document.getElementById("setZoom").addEventListener("click", ()=>{
     let zoom = document.getElementById("zoomNum").value;
     if (!document.getElementById("point").value || !zoom) {
         return ;
@@ -20,9 +20,10 @@ function sendZoomMessage() {
             });
         }
     }
-};
+});
 
-function sendExtentMessage() {
+
+document.getElementById("setExtent").addEventListener("click", ()=>{
     if (document.getElementById("extents").value) {
         let extent = document.getElementById("extents").value;
         if (extent) {
@@ -34,10 +35,10 @@ function sendExtentMessage() {
     } else {
         return ;
     }
+});
 
-};
 
-function checkPoint() {
+document.getElementById("extents").addEventListener("keyup", ()=>{
     let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;         //march four decimals
     let text = document.getElementById("extents").value;
     if (text) {
@@ -50,9 +51,9 @@ function checkPoint() {
             document.getElementById("extents").style.border = "1px solid black";
         }
     }
-}
+});
 
-function checkExtent() {
+document.getElementById("point").addEventListener("keyup",()=>{
     let re = /(-?\d+\.?\d*\,)(-?\d+\.?\d*)/;            //march two decimals
     let text = document.getElementById("point").value;
     if (text) {
@@ -65,8 +66,10 @@ function checkExtent() {
             document.getElementById("point").style.border = "1px solid black";
         }
     }
-}
+});
 
+document.getElementById("extents").addEventListener("blur", checkInput);
+document.getElementById("point").addEventListener("blur",checkInput);
 function checkInput() {
     let text = document.getElementById("point").value;
     if (!text) {
