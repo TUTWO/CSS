@@ -10,13 +10,8 @@
         document.getElementById(menu).style.display = "block";
 
     }
-    // { commandName: "deleteShapes", featureIds: [item.id] }
-    // {
-    //     commandName: "centerOnShape",
-    //     featureId: item.id
-    // }
     function deleteItem(evt) {
-        sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.id] });
+        sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.parentElement.id] });
         evt.target.parentElement.remove();
         if(document.getElementById("leftPanelDiv1").childElementCount==0){
             document.getElementById("deleteAll").style.display = "none";
@@ -105,7 +100,7 @@
         var text = document.getElementById("extents").value;
         if (text) {
             if (!re.test(text)) {
-                document.getElementById("inputExtent").innerHTML = "格式错误!";
+                document.getElementById("inputExtent").innerHTML = "��ʽ����!";
                 document.getElementById("extents").style.border = "1px solid red";
             }
             else {
@@ -118,7 +113,7 @@
         var re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;
         var text = document.getElementById("extents").value;
         if (!text) {
-            document.getElementById("inputExtent").innerHTML = "请输入坐标!";
+            document.getElementById("inputExtent").innerHTML = "����������!";
             document.getElementById("extents").style.border = "1px solid red";
         }
     })
@@ -157,7 +152,6 @@
                 image1.height = "26";
                 image1.width = "26";
                 image1.className = "delete";
-                image1.id = data.featureId;
                 image1.addEventListener("click", deleteItem);
     
                 var image2 = document.createElement("img");
@@ -165,6 +159,7 @@
                 image2.height = "26";
                 image2.width = "26";
                 image2.merginLeft = "26";
+                image2.addEventListener("click",zoomToCenter);
     
                 var second = document.createElement("div")
                 second.appendChild(radio);
@@ -172,6 +167,7 @@
                 second.appendChild(image1);
                 second.appendChild(image2);
                 second.className = "add-new";
+                second.id=data.featureId;
                 var element = document.getElementById("leftPanelDiv1");
                 element.appendChild(second);
                 document.getElementById("deleteAll").style.display = "block";
@@ -179,6 +175,18 @@
         };
         document.getElementById("deleteAll").addEventListener("click",deleteAllItems);
         function deleteAllItems(evt){
-
+            var len=document.getElementsByClassName("add-new").length;
+            for(var i=len-1;i>=0;i--)
+            {
+                sendMessages({ commandName: "deleteShapes", featureIds: [document.getElementsByClassName("add-new")[i].id] });
+                document.getElementsByClassName("add-new")[i].remove();
+            }
+            document.getElementById("deleteAll").style.display="none";
+        }
+        function zoomToCenter(evt){
+            sendMessages({
+                    commandName: "centerOnShape",
+                    featureId: evt.target.parentElement.id
+                });
         }
 }()
