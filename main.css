@@ -110,9 +110,22 @@ div.tab button:focus {
     margin: 0 0 0 20px;
     position: relative;
     top:-15px;
+    cursor: pointer;
 }
 .add-new img {
     margin:10px 0 0 20px;
     float:right;
     border: 1px solid rgb(70, 184, 218);
+}
+li{
+    float: left;
+}
+#active{
+    border-radius: 5px 5px 0 0;
+    border-top:1px solid #DDDDDD;
+    border-right:1px solid #DDDDDD;
+    border-left:1px solid #DDDDDD;
+    color:black;
+    background-color: white;
+    border-bottom:none;
 }
