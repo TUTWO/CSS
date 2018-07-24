@@ -45,7 +45,8 @@ let handles =
     }
 };
 
-function addEvents(evt, labelStyle) {
+function addEvents(evt) {
+    var labelStyle=evt.style;
     sendMessages({
         commandName: 'drawSymbol',
         image: evt.target.src,
