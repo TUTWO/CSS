@@ -22,7 +22,6 @@ document.getElementById("setZoom").addEventListener("click", () => {
     }
 });
 
-
 document.getElementById("setExtent").addEventListener("click", () => {
     if (document.getElementById("extents").value) {
         let extent = document.getElementById("extents").value;
@@ -37,7 +36,6 @@ document.getElementById("setExtent").addEventListener("click", () => {
     }
 });
 
-
 document.getElementById("extents").addEventListener("keyup", () => {
     let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;         //march four decimals
     let text = document.getElementById("extents").value;
@@ -47,7 +45,7 @@ document.getElementById("extents").addEventListener("keyup", () => {
             document.getElementById("extents").style.border = "1px solid red";
         }
         else {
-            document.getElementById("inputExtent").innerHTML = "";
+            document.getElementById("inputExtent").style.display = "none";
             document.getElementById("extents").style.border = "1px solid black";
         }
     }
@@ -62,7 +60,7 @@ document.getElementById("point").addEventListener("keyup", () => {
             document.getElementById("point").style.border = "1px solid red";
         }
         else {
-            document.getElementById("inputPoint").innerHTML = "";
+            document.getElementById("inputPoint").style.display = "none";
             document.getElementById("point").style.border = "1px solid black";
         }
     }

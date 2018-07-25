@@ -52,8 +52,19 @@
 			<button id="setExtent">Set extent</button>
 		</div>
 		<div id="shape" class="tabcontent">
-			<button>Select</button>
-			<button>Draw</button>
+			<div class="selectType" style="float: left;">
+				<button id="selectButton">Select
+					<a class="caret"></a>
+				</button>
+				<ul id="selectType" style="display: none;">
+					<li><a href="#">Select</a></li>
+					<li><a href="#">Lasso</a></li>
+					<li><a href="#">Select All</a></li>
+				</ul>
+			</div>
+			<button>Draw
+				<a class="caret"></a>
+			</button>
 			<button>Slice</button>
 			<span>Stroke:</span>
 			<input type="color" value="blue">

@@ -63,10 +63,10 @@ div.tab button:focus {
     display: none;
     border-top: 1px solid #ccc;
     padding:25px 0 15px 0;
-    height:60px;
+    height: 60px;
 }
 #nav2 {
-    height:70px;
+    height: 70px;
     width:100%;
     float:left;
     margin:5px 0 0 0;
@@ -116,9 +116,6 @@ div.tab button:focus {
     float:right;
     border: 1px solid rgb(70, 184, 218);
 }
-li{
-    float: left;
-}
 #active{
     border-radius: 5px 5px 0 0;
     border-top:1px solid #DDDDDD;
@@ -127,4 +124,42 @@ li{
     color:black;
     background-color: white;
     border-bottom:none;
+}
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+#selectType{
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    padding: 0;
+    display:block;
+    width: 100px;
+    text-align: center;
+    font-size: 17px;
+    border: 1px solid #C4C4C4;
+}
+#selectType li{
+    list-style-type: none;
+    height: 100%;
+    width: 100%;
+}
+#selectType li a{
+    text-decoration: none;
+    display: block;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+#selectType li a:hover{
+    background-color: #337AB7;
 }

@@ -21,7 +21,8 @@ let handlers =
             if (data.featureId) {
                 featureId = data.featureId.split("-");
                 symbol = data.featureType;
-                let labeltext = document.createTextNode(symbol + ":" + featureId[featureId.length - 1]);
+
+                let labeltext = document.createTextNode(`${symbol}:${featureId[featureId.length - 1]}`);
                 label.appendChild(labeltext);
                 label.addEventListener("mouseover", enlargeSymbol);
                 label.addEventListener("mouseout", enlargeSymbol);

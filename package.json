@@ -5,7 +5,7 @@
   "main": "taskone.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server":"lite-server"
+    "server": "lite-server"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "homepage": "https://github.com/TUTWO/CSS#readme",
   "devDependencies": {
     "lite-server": "^2.4.0"
+  },
+  "dependencies": {
+    "D": "^1.0.0"
   }
 }
