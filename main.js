@@ -6,7 +6,7 @@ document.getElementById("tabdiv").addEventListener("click", (evt) => {
             tabcontent[i].style.display = "none";
             break;
         }
-    } 
+    }
     let tablinks = document.getElementsByClassName("tablinks");
     for (let i = 0; i < tablinks.length; i++) {
         if (tablinks[i].id === "active") {
@@ -17,9 +17,16 @@ document.getElementById("tabdiv").addEventListener("click", (evt) => {
     evt.target.id = "active";
 });
 
-document.getElementById("selectButton").addEventListener("click",(evt)=>{
-    let displaytype=document.getElementById(evt.target.parentElement.className);
-    if(displaytype){
-        displaytype.style.display=(displaytype.style.display==="block"?"none":"block");
+document.getElementById("selectButton").addEventListener("click", (evt) => {
+    let displaytype = document.getElementById(evt.target.parentElement.className);
+    if (displaytype) {
+        displaytype.style.display = (displaytype.style.display === "block" ? "none" : "block");
+    }
+})
+
+document.getElementById("selectButton").addEventListener("blur", (evt) => {
+    let displaytype = document.getElementById(evt.target.parentElement.className);
+    if (displaytype) {
+        displaytype.style.display = "none";
     }
 })

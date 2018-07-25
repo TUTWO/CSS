@@ -8,13 +8,6 @@ document.getElementById("symbol").addEventListener("click", (evt) => {
     });
 });
 
-function reciveMessage(evt) {
-    if (evt.data) {
-        name = evt.data.data.commandName;
-        handlers[name] && handlers[name](evt.data.data);
-    }
-};
-
 document.getElementById("deleteAll").addEventListener("click", (evt) => {
     let len = document.getElementsByClassName("add-new").length;
     for (let i = len - 1; i >= 0; i--) {
