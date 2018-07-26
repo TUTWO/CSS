@@ -1,77 +1,87 @@
 
-document.getElementById("setZoom").addEventListener("click", () => {
-    let zoom = document.getElementById("zoomNum").value;
-    if (!document.getElementById("point").value || !zoom) {
-        return;
-    } else {
-        let center = document.getElementById("point").value.split(",");
-        if (center.length !== 2) {
+$(() => {
+    $("#setZoom").click(() => {
+        let zoom = $("#zoomNum").val();
+        let point = $("#point").val();
+        if (!point || !zoom) {
+            return;
+        } else {
+            let center = point.split(",");
+            if (center.length !== 2) {
+                return;
+            }
+            else {
+                let [x, y] = center;
+                sendMessages({
+                    commandName: 'setExtent',
+                    zoomLevel: zoom,
+                    centerPoint: {
+                        x: +x,
+                        y: +y
+                    }
+                });
+            }
+        }
+    });
+
+    $("#setExtent").click(() => {
+        let extent = $("#extents").val();
+        if (extent) {
+            let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;
+            if (re.test(extent)) {
+                sendMessages({
+                    commandName: 'setExtent',
+                    extent: extent
+                });
+            } else {
+                return;
+            }
+
+        } else {
             return;
         }
-        else {
-            let [x, y] = center;
-            sendMessages({
-                commandName: 'setExtent',
-                zoomLevel: zoom,
-                centerPoint: {
-                    x: +x,
-                    y: +y
-                }
-            });
-        }
-    }
-});
+    });
 
-document.getElementById("setExtent").addEventListener("click", () => {
-    if (document.getElementById("extents").value) {
-        let extent = document.getElementById("extents").value;
-        if (extent) {
-            sendMessages({
-                commandName: 'setExtent',
-                extent: extent
-            });
+    $("#extents").keyup(() => {
+        let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;         //march four decimals
+        let text = $("#extents").val();
+        if (text) {
+            if (!re.test(text)) {
+                $("#inputExtent").text("Wrong Format!");
+                $("#extents").css("border", "1px solid red");
+            }
+            else {
+                $("#inputExtent").text("");
+                $("#extents").css("border", "1px solid black");
+            }
         }
-    } else {
-        return;
-    }
-});
+    }).blur(() => {
+        let text = $("#extents").val();
+        if (!text) {
+            $("#inputExtent").text("Please Input!");
+            $("#extents").css("border", "1px solid red");
+        }
+    });
 
-document.getElementById("extents").addEventListener("keyup", () => {
-    let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;         //march four decimals
-    let text = document.getElementById("extents").value;
-    if (text) {
-        if (!re.test(text)) {
-            document.getElementById("inputExtent").innerHTML = "Wrong Format!";
-            document.getElementById("extents").style.border = "1px solid red";
+    $("#point").keyup(() => {
+        let re = /(-?\d+\.?\d*\,)(-?\d+\.?\d*)/;         //march four decimals
+        let text = $("#point").val();
+        if (text) {
+            if (!re.test(text)) {
+                $("#inputPoint").text("Wrong Format!");
+                $("#point").css("border", "1px solid red");
+            }
+            else {
+                $("#inputPoint").text("");
+                $("#point").css("border", "1px solid black");
+            }
         }
-        else {
-            document.getElementById("inputExtent").style.display = "none";
-            document.getElementById("extents").style.border = "1px solid black";
+    }).blur(() => {
+        let text = $("#point").val();
+        if (!text) {
+            $("#inputPoint").text("Please Input!");
+            $("#point").css("border", "1px solid red");
         }
-    }
-});
+    });
+})
 
-document.getElementById("point").addEventListener("keyup", () => {
-    let re = /(-?\d+\.?\d*\,)(-?\d+\.?\d*)/;            //march two decimals
-    let text = document.getElementById("point").value;
-    if (text) {
-        if (!re.test(text)) {
-            document.getElementById("inputPoint").innerHTML = "Format Error!";
-            document.getElementById("point").style.border = "1px solid red";
-        }
-        else {
-            document.getElementById("inputPoint").style.display = "none";
-            document.getElementById("point").style.border = "1px solid black";
-        }
-    }
-});
-
-document.getElementById("extents").addEventListener("blur", checkInput);
-document.getElementById("point").addEventListener("blur", checkInput);
-function checkInput() {
-    let text = document.getElementById("point").value;
-    if (!text) {
-        document.getElementById("inputPoint").innerHTML = "Please input!";
-        document.getElementById("point").style.border = "1px solid red";
-    }
-}

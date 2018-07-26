@@ -1,32 +1,15 @@
 
-document.getElementById("tabdiv").addEventListener("click", (evt) => {
-    let tabcontent = document.getElementsByClassName("tabcontent");
-    for (let i = 0; i < tabcontent.length; i++) {
-        if (tabcontent[i].style.display === "block") {
-            tabcontent[i].style.display = "none";
-            break;
-        }
-    }
-    let tablinks = document.getElementsByClassName("tablinks");
-    for (let i = 0; i < tablinks.length; i++) {
-        if (tablinks[i].id === "active") {
-            tablinks[i].removeAttribute("id");
-        }
-    }
-    document.getElementById(evt.target.name).style.display = "block";
-    evt.target.id = "active";
+$(() => {
+    $(".tablinks").click(function (evt) {
+        $(".tabcontent").hide();
+        $(`#${evt.target.name}`).show();
+        $(".tablinks").removeAttr("id");
+        $(this).attr("id", "active");
+    });
+
+    $("#selectButton").click(() => {
+        $("#selectType").toggle();
+    }).blur(()=>{
+        $("#selectType").hide();
+    });
 });
-
-document.getElementById("selectButton").addEventListener("click", (evt) => {
-    let displaytype = document.getElementById(evt.target.parentElement.className);
-    if (displaytype) {
-        displaytype.style.display = (displaytype.style.display === "block" ? "none" : "block");
-    }
-})
-
-document.getElementById("selectButton").addEventListener("blur", (evt) => {
-    let displaytype = document.getElementById(evt.target.parentElement.className);
-    if (displaytype) {
-        displaytype.style.display = "none";
-    }
-})

@@ -105,14 +105,14 @@ div.tab button:focus {
     height: 40px;
 }
 .add-new span {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500px;
     position: relative;
     top:-15px;
     cursor: pointer;
 }
 .add-new img {
-    margin:10px 0 0 20px;
+    margin:10px 0 0 10px;
     float:right;
     border: 1px solid rgb(70, 184, 218);
 }

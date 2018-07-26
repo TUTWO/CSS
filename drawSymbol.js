@@ -1,21 +1,24 @@
 
-document.getElementById("symbol").addEventListener("click", (evt) => {
-    var labelStyle = evt.style;
-    sendMessages({
-        commandName: 'drawSymbol',
-        image: evt.target.src,
-        labelStyle: labelStyle
+$(() => {
+    $("#symbol").click((evt) => {
+        let labelStyle = evt.style;
+        sendMessages({
+            commandName: 'drawSymbol',
+            image: evt.target.src,
+            labelStyle: labelStyle
+        });
     });
-});
 
-document.getElementById("deleteAll").addEventListener("click", (evt) => {
-    let len = document.getElementsByClassName("add-new").length;
-    for (let i = len - 1; i >= 0; i--) {
-        sendMessages({ commandName: "deleteShapes", featureIds: [document.getElementsByClassName("add-new")[i].id] });
-        document.getElementsByClassName("add-new")[i].remove();
-    }
-    document.getElementById("deleteAll").style.display = "none";
-});
+    $("#deleteAll").click(() => {
+        let len = $(".add-new").length;
+        for (i = len - 1; i >= 0; i--) {
+            sendMessages({ commandName: "deleteShapes", featureIds: [$(".add-new")[i].id] });
+        }
+        $(".add-new").remove();
+        $("#deleteAll").css("display", "none");
+    });
+
+})
 
 function zoomToCenter(evt) {
     sendMessages({
@@ -27,14 +30,14 @@ function zoomToCenter(evt) {
 function deleteItem(evt) {
     sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.parentElement.id] });
     evt.target.parentElement.remove();
-    if (document.getElementById("leftPanelDiv1").childElementCount === 0) {
-        document.getElementById("deleteAll").style.display = "none";
+    if ($("#leftPanelDiv1").childElementCount === 0) {
+        $("deleteAll").css("display","none");
     }
 }
 
-function enlargeSymbol(evt, isHighlight) {
+function enlargeSymbol(evt) {
     mouseEvent = evt.type;
-    isHighlight = (mouseEvent === "mouseover");
+    let isHighlight = (mouseEvent === "mouseenter");
     sendMessages({ commandName: "highlightFeature", featureId: evt.target.parentElement.id, color: isHighlight ? "#00FFFF" : undefined });
 }
 
