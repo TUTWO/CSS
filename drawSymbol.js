@@ -1,13 +1,22 @@
+class A {
+    constructor(){
+        this.name='A';
+    }
 
-$(() => {
-    $("#symbol").click((evt) => {
+    symbolClickHandler(evt){
         let labelStyle = evt.style;
         sendMessages({
             commandName: 'drawSymbol',
             image: evt.target.src,
             labelStyle: labelStyle
         });
-    });
+    }
+}
+
+$(() => {
+    const a= new A();
+
+    $("#symbol").click(a.symbolClickHandler.bind(a));
 
     $("#deleteAll").click(() => {
         let len = $(".add-new").length;
@@ -30,7 +39,7 @@ function zoomToCenter(evt) {
 function deleteItem(evt) {
     sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.parentElement.id] });
     evt.target.parentElement.remove();
-    if ($("#leftPanelDiv1").childElementCount === 0) {
+    if ($("#leftPanelDiv1").children.length === 0) {
         $("deleteAll").css("display","none");
     }
 }

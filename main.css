@@ -139,12 +139,15 @@ div.tab button:focus {
     z-index: 1000;
     position: absolute;
     background-color: white;
-    padding: 0;
+    padding: 5px 0 5px 0;
     display:block;
     width: 100px;
     text-align: center;
     font-size: 17px;
     border: 1px solid #C4C4C4;
+    margin: 5px 0 0 0;
+    border-radius: 5px;
+    cursor: pointer;
 }
 #selectType li{
     list-style-type: none;
@@ -155,23 +158,26 @@ div.tab button:focus {
     clear: both;
     font-weight: 400;
     line-height: 1.42857143;
-    color: #333;
     white-space: nowrap;
 }
 
-#selectType li:hover{
-    background-color: #337AB7;
-}
+/* #selectType li:hover{
+    background-color: #F5F5F5;
+} */
 #drawType{
     z-index: 1000;
     position: absolute;
     background-color: white;
     padding: 0;
     display:block;
-    width: 120px;
+    width: 130px;
     text-align: center;
     font-size: 17px;
     border: 1px solid #C4C4C4;
+    margin: 5px 0 0 0;
+    padding: 5px 0 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
 }
 #drawType li{
     list-style-type: none;
@@ -182,10 +188,13 @@ div.tab button:focus {
     clear: both;
     font-weight: 400;
     line-height: 1.42857143;
-    color: #333;
     white-space: nowrap;
 }
 
 #drawType li:hover{
+    background-color: #F5F5F5;
+}
+#selectDraw{
     background-color: #337AB7;
+    color: white;
 }
