@@ -7,9 +7,4 @@ $(() => {
         $(this).attr("id", "active");
     });
 
-    $("#selectButton").click(() => {
-        $("#selectType").toggle();
-    }).blur(()=>{
-        $("#selectType").hide();
-    });
 });

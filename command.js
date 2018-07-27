@@ -28,9 +28,10 @@ getJson('config.json').then(function (response) {
 
 setTimeout(() => { sendMessages({ commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 }); }, 1000);
 
+let drawTypes = ["drawSymbol","drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
 let handlers =
 {
-    "drawSymbol": function addItem(data) {
+    "drawTypes": function addItem(data) {
         if (data.featureId) {
             var div = $(`<div class="add-new" id="${data.featureId}"></div>`).appendTo("#leftPanelDiv1");
             var checkbox = $('<input type="checkbox" checked>').appendTo(div).on("click", showhideSymbol);
@@ -42,12 +43,17 @@ let handlers =
             $("#deleteAll").css("display", "block");
         }
     }
+    
 };
+
 
 window.addEventListener("message", reciveMessage);
 function reciveMessage(evt) {
     if (evt.data) {
         name = evt.data.data.commandName;
-        handlers[name] && handlers[name](evt.data.data);
+        if($.inArray(name,drawTypes!==-1)){
+            let typeName="drawTypes";
+            handlers[typeName]&&handlers[typeName](evt.data.data);
+        }
     }
 };

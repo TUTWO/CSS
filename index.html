@@ -53,26 +53,40 @@
 			<button id="setExtent">Set extent</button>
 		</div>
 		<div id="shape" class="tabcontent">
-			<div class="selectType" style="float: left;">
+			<div style="float: left;">
 				<button id="selectButton">Select
 					<a class="caret"></a>
 				</button>
 				<ul id="selectType" style="display: none;">
-					<li><a href="#">Select</a></li>
-					<li><a href="#">Lasso</a></li>
-					<li><a href="#">Select All</a></li>
+					<li>Select</li>
+					<li>Lasso</li>
+					<li>Select All</li>
 				</ul>
 			</div>
-			<button id="drawButton">Draw
-				<a class="caret"></a>
-			</button>
+			<div style="float: left;" >
+				<button id="drawButton">Draw
+					<a class="caret"></a>
+				</button>
+				<ul id="drawType" style="display: none;">
+					<li>Draw Line</li>
+					<li>Draw Polyline</li>
+					<li>Draw Polygon</li>
+					<li>Draw Rectangle</li>
+					<li>Draw Square</li>
+					<li>Draw Pencil</li>
+					<li>Measure</li>
+					<li>Draw Label</li>
+					<li>Draw Arrow</li>
+					<li>Draw Callout</li>
+				</ul>
+			</div>
 			<button>Slice</button>
 			<span>Stroke:</span>
-			<input type="color" value="blue">
+			<input type="color" id="strokeColor">
 			<span>Fill:</span>
-			<input type="color">
+			<input type="color" id="fillColor">
 			<span>Stroke Width:</span>
-			<input type="number" min="1" max="10" value="3">
+			<input type="number" min="1" max="10" value="2" id="strokeWidth">
 		</div>
 		<div id="symbol" class="tabcontent" style="display:block; ">
 			<img title="Symbol" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABgUExURf8lJb+/v1NTU4+Pj/8MDP8WFgcHB4CAgOXl5WtraykpKfX19Z+fn9HR0f+4uP9HR//x8f+xsf8/P/9PT//AwP+vr/9ycv+Ojv+fn/9gYP/r6//X1//e3gEBAf8AAP///6tc0DoAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEzSURBVDhPlZPtkoMwCEXTNmZb2zVqNOmHwPu/5QZIbevMTnbvHxHOBALEUEX/AfohemOt8XHoiytrBe5pxFVjuhf3CnQB0YbULUuXgkUMXQkU4GqwiZPaRFNs0FzVVuDaoJ/FKpo9NkoI0Bm8PYi+xaN63NBIFgbuAX2O0353ZhcRQCY8Bq6UgYSNnA/uoAQDNDeY8icD/YhR/A7aw5ENASjimPuRgQGt1u8A3J4LUWCyOAgQMfC/AEooQIFPzoCXXFkMgGsvTyChF8Bg6ZoAAO2lAB1ylMjiopGtFrR/A7Yp3H6T4rNIcKfjpsiPa4L7Om+v+d6ofIVsKLA26q3V0O7YUGBt9WtYII0uwGtY67jhJKNS4H3cz4W5lHVgfSxMfeXqS1tf+/rDyao8vd9UAYh+AGwaavVixIFNAAAAAElFTkSuQmCC"
@@ -147,6 +161,7 @@
 	<script type="text/javascript" src="extentZoom.js"></script>
 	<script type="text/javascript" src="drawSymbol.js"></script>
 	<script type="text/javascript" src="command.js"></script>
+	<script type="text/javascript" src="drawShape.js"></script>
 </body>
 
 </html>
