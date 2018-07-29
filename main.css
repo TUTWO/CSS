@@ -160,10 +160,6 @@ div.tab button:focus {
     line-height: 1.42857143;
     white-space: nowrap;
 }
-
-/* #selectType li:hover{
-    background-color: #F5F5F5;
-} */
 #drawType{
     z-index: 1000;
     position: absolute;
@@ -190,11 +186,10 @@ div.tab button:focus {
     line-height: 1.42857143;
     white-space: nowrap;
 }
-
-#drawType li:hover{
-    background-color: #F5F5F5;
-}
 #selectDraw{
     background-color: #337AB7;
     color: white;
+}
+#notselectDraw:hover{
+    background-color: #F5F5F5;
 }

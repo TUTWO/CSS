@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
@@ -7,9 +7,17 @@
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="allInOne.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 </head>
 
 <body>
+	<div id="dialog-confirm" style="display: none;" title="Delete">
+		<p>
+			<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Are you sure to delete?</p>
+	</div>
 	<div class="tab" id="tabdiv">
 		<button class="tablinks" name="extent">Extent | Zoom</button>
 		<button class="tablinks" name="shape">Draw Shape</button>
@@ -59,25 +67,25 @@
 				</button>
 				<ul id="selectType" style="display: none;">
 					<li id="selectDraw">Select</li>
-					<li>Lasso</li>
-					<li>Select All</li>
+					<li id="notselectDraw">Lasso</li>
+					<li id="notselectDraw">Select All</li>
 				</ul>
 			</div>
-			<div style="float: left;" >
+			<div style="float: left;">
 				<button id="drawButton">Draw
 					<a class="caret"></a>
 				</button>
 				<ul id="drawType" style="display: none;">
-					<li id="selectDraw">Draw Line</li>
-					<li>Draw Polyline</li>
-					<li>Draw Polygon</li>
-					<li>Draw Rectangle</li>
-					<li>Draw Square</li>
-					<li>Draw Pencil</li>
-					<li>Measure</li>
-					<li>Draw Label</li>
-					<li>Draw Arrow</li>
-					<li>Draw Callout</li>
+					<li id="notselectDraw">Draw Line</li>
+					<li id="notselectDraw">Draw Polyline</li>
+					<li id="notselectDraw">Draw Polygon</li>
+					<li id="notselectDraw">Draw Rectangle</li>
+					<li id="notselectDraw">Draw Square</li>
+					<li id="notselectDraw">Draw Pencil</li>
+					<li id="notselectDraw">Measure</li>
+					<li id="notselectDraw">Draw Label</li>
+					<li id="notselectDraw">Draw Arrow</li>
+					<li id="notselectDraw">Draw Callout</li>
 				</ul>
 			</div>
 			<button>Slice</button>
@@ -116,16 +124,16 @@
 			<input>
 			<span>Label WKT: </span>
 			<input>
-			<span>Label WKT: </span>
+			<span>Label: </span>
 			<input>
 			<button>Add Shape</button>
 		</div>
 		<div id="controls" class="tabcontent">
-			<input type="checkbox" style="margin:0 0 0 30px; " checked>
+			<input type="checkbox" id="LayerSwitcher" style="margin:0 0 0 30px; " checked>
 			<label>Layer Switcher</label>
-			<input type="checkbox" style="margin:0 0 0 30px; " checked>
+			<input type="checkbox" id="CurrentLocation" style="margin:0 0 0 30px; " checked>
 			<label>Current Location</label>
-			<input type="checkbox" style="margin:0 0 0 30px; " checked>
+			<input type="checkbox" id="PanZoomBar" style="margin:0 0 0 30px; " checked>
 			<label>Pan Zoom Bar</label>
 		</div>
 		<div id="gps" class="tabcontent">
@@ -133,7 +141,7 @@
 			<button>Get Gps Signal</button>
 		</div>
 		<div id="others" class="tabcontent" style="margin: 0 0 0 0">
-			<button>Change To Gray</button>
+			<button id="changeToGrey" >Change To Gray</button>
 			<input type="text">
 			<button>Update Loading Logo</button>
 			<input type="number" step="0.1" min="0.8" max="1" value="1">
@@ -162,6 +170,7 @@
 	<script type="text/javascript" src="drawSymbol.js"></script>
 	<script type="text/javascript" src="command.js"></script>
 	<script type="text/javascript" src="drawShape.js"></script>
+	<script type="text/javascript" src="Controls.js"></script>
 </body>
 
 </html>

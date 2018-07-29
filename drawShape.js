@@ -22,16 +22,17 @@ $(() => {
 
     $("#selectType li").click(function () {
         let commandName = selectType[$(this).index()];
-        sendMessages({commandName});
+        sendMessages({ commandName });
         $("#selectType li").removeAttr("id");
-        $(this).attr("id","selectDraw");
+        $("#selectType li").attr("id","notselectDraw");
+        $(this).attr("id", "selectDraw");
         $("#selectType").hide();
     });
-    
+let drawTypeName;
     $("#drawType li").click(function () {
-        let commandName = drawType[$(this).index()];
+        drawTypeName = drawType[$(this).index()];
         sendMessages({
-            commandName: commandName,
+            commandName: drawTypeName,
             style: {
                 fillColor: $("#fillColor").val(),
                 fillOpacity: "0.5",
@@ -41,8 +42,34 @@ $(() => {
             }
         });
         $("#drawType li").removeAttr("id");
-        $(this).attr("id","drawType");
+        $("#drawType li").attr("id","notselectDraw");
+        $(this).attr("id", "selectDraw");
         $("#drawType").hide();
+    });
+
+    $("#strokeColor").blur(()=>{
+        sendMessages({
+            commandName: drawTypeName,
+            style: {
+                fillColor: $("#fillColor").val(),
+                fillOpacity: "0.5",
+                strokeColor: $("#strokeColor").val(),
+                strokeOpacity: "1",
+                strokeWidth: $("#strokeWidth").val()
+            }
+        });
+    });
+    $("#fillColor").blur(()=>{
+        sendMessages({
+            commandName: drawTypeName,
+            style: {
+                fillColor: $("#fillColor").val(),
+                fillOpacity: "0.5",
+                strokeColor: $("#strokeColor").val(),
+                strokeOpacity: "1",
+                strokeWidth: $("#strokeWidth").val()
+            }
+        });
     });
 })
 

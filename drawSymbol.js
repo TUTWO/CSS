@@ -1,9 +1,9 @@
 class A {
-    constructor(){
-        this.name='A';
+    constructor() {
+        this.name = 'A';
     }
 
-    symbolClickHandler(evt){
+    symbolClickHandler(evt) {
         let labelStyle = evt.style;
         sendMessages({
             commandName: 'drawSymbol',
@@ -14,19 +14,31 @@ class A {
 }
 
 $(() => {
-    const a= new A();
+    const a = new A();
 
     $("#symbol").click(a.symbolClickHandler.bind(a));
 
     $("#deleteAll").click(() => {
-        let len = $(".add-new").length;
-        for (i = len - 1; i >= 0; i--) {
-            sendMessages({ commandName: "deleteShapes", featureIds: [$(".add-new")[i].id] });
-        }
-        $(".add-new").remove();
-        $("#deleteAll").css("display", "none");
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: 200,
+            modal: true,
+            buttons: {
+                "YES": function () {
+                    let len = $(".add-new").length;
+                    for (i = len - 1; i >= 0; i--) {
+                        sendMessages({ commandName: "deleteShapes", featureIds: [$(".add-new")[i].id] });
+                    }
+                    $(".add-new").remove();
+                    $("#deleteAll").css("display", "none");
+                    $(this).dialog("close");
+                },
+                "NO": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
     });
-
 })
 
 function zoomToCenter(evt) {
@@ -37,11 +49,25 @@ function zoomToCenter(evt) {
 }
 
 function deleteItem(evt) {
-    sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.parentElement.id] });
-    evt.target.parentElement.remove();
-    if ($("#leftPanelDiv1").children.length === 0) {
-        $("deleteAll").css("display","none");
-    }
+    $("#dialog-confirm").dialog({
+        resizable: false,
+        height: 200,
+        modal: true,
+        buttons: {
+            "YES": function () {
+                $(this).dialog("close");
+                sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.parentElement.id] });
+                evt.target.parentElement.remove();
+                let len = $(".add-new").length;
+                if (len === 0) {
+                    $("#deleteAll").css("display", "none");
+                }
+            },
+            "NO": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
 }
 
 function enlargeSymbol(evt) {
