@@ -1,14 +1,15 @@
 
-let selectType = ["select", "lasso", "selectAllFeatures"];
-let drawType = ["drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
-let style = {
-    fillColor: "#ffffff",
-    fillOpacity: "0.5",
-    strokeColor: "#1f85f0",
-    strokeOpacity: "1",
-    strokeWidth: 2
-}
 $(() => {
+
+    let selectType = ["select", "lasso", "selectAllFeatures"];
+    let drawType = ["drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
+    let style = {
+        fillColor: "#ffffff",
+        fillOpacity: "0.5",
+        strokeColor: "#1f85f0",
+        strokeOpacity: "1",
+        strokeWidth: 2
+    };
 
     $("#selectButton").click(() => {
         $("#selectType").toggle();
@@ -24,11 +25,12 @@ $(() => {
         let commandName = selectType[$(this).index()];
         sendMessages({ commandName });
         $("#selectType li").removeAttr("id");
-        $("#selectType li").attr("id","notselectDraw");
+        $("#selectType li").attr("id", "notselectDraw");
         $(this).attr("id", "selectDraw");
         $("#selectType").hide();
     });
-let drawTypeName;
+
+    let drawTypeName;
     $("#drawType li").click(function () {
         drawTypeName = drawType[$(this).index()];
         sendMessages({
@@ -42,12 +44,12 @@ let drawTypeName;
             }
         });
         $("#drawType li").removeAttr("id");
-        $("#drawType li").attr("id","notselectDraw");
+        $("#drawType li").attr("id", "notselectDraw");
         $(this).attr("id", "selectDraw");
         $("#drawType").hide();
     });
 
-    $("#strokeColor").blur(()=>{
+    $("#strokeColor").blur(() => {
         sendMessages({
             commandName: drawTypeName,
             style: {
@@ -59,7 +61,8 @@ let drawTypeName;
             }
         });
     });
-    $("#fillColor").blur(()=>{
+    
+    $("#fillColor").blur(() => {
         sendMessages({
             commandName: drawTypeName,
             style: {

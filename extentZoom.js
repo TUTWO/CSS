@@ -13,7 +13,7 @@ $(() => {
             else {
                 let [x, y] = center;
                 sendMessages({
-                    commandName: 'setExtent',
+                    commandName: "setExtent",
                     zoomLevel: zoom,
                     centerPoint: {
                         x: +x,
@@ -30,7 +30,7 @@ $(() => {
             let re = /(-?\d+\.?\d*\,){3}(-?\d+\.?\d*)/;
             if (re.test(extent)) {
                 sendMessages({
-                    commandName: 'setExtent',
+                    commandName: "setExtent",
                     extent: extent
                 });
             } else {

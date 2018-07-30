@@ -1,7 +1,9 @@
+
+
 $(() => {
     $("#controls input").click((evt) => {
         sendMessages({
-            commandName: 'setControlsVisibility',
+            commandName: "setControlsVisibility",
             controls: [{
                 name: evt.target.id,
                 visible: evt.target.checked
@@ -10,16 +12,12 @@ $(() => {
     });
 
     let isGray = false;
-    $("#changeToGrey").click(() => {
+    $("#changeToGray").click(() => {
         isGray = !isGray;
         sendMessages({
-            commandName: 'changeGrayScale',
+            commandName: "changeGrayScale",
             isGray: isGray
         })
-        if (isGray) {
-            $("#changeToGrey").text("Change Back");
-        }else{
-            $("#changeToGrey").text("Change To Grey");            
-        }
-    })
+        $("#changeToGray").text(isGray?"Change Back":"Change To Grey");
+    });
 })

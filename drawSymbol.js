@@ -1,25 +1,26 @@
-class A {
-    constructor() {
-        this.name = 'A';
-    }
 
-    symbolClickHandler(evt) {
-        let labelStyle = evt.style;
-        sendMessages({
-            commandName: 'drawSymbol',
-            image: evt.target.src,
-            labelStyle: labelStyle
-        });
-    }
-}
 
 $(() => {
+    class A {
+        constructor() {
+            this.name = 'A';
+        }
+
+        symbolClickHandler(evt) {
+            let labelStyle = evt.style;
+            sendMessages({
+                commandName: "drawSymbol",
+                image: evt.target.src,
+                labelStyle: labelStyle
+            });
+        }
+    };
     const a = new A();
 
     $("#symbol").click(a.symbolClickHandler.bind(a));
 
     $("#deleteAll").click(() => {
-        $("#dialog-confirm").dialog({
+        $("#dialog-confirm2").dialog({
             resizable: false,
             height: 200,
             modal: true,
@@ -38,6 +39,7 @@ $(() => {
                 }
             }
         });
+        $(".ui-widget-overlay").removeAttr("background");
     });
 })
 
@@ -58,8 +60,7 @@ function deleteItem(evt) {
                 $(this).dialog("close");
                 sendMessages({ commandName: "deleteShapes", featureIds: [evt.target.parentElement.id] });
                 evt.target.parentElement.remove();
-                let len = $(".add-new").length;
-                if (len === 0) {
+                if (!$(".add-new").length) {
                     $("#deleteAll").css("display", "none");
                 }
             },
@@ -70,8 +71,9 @@ function deleteItem(evt) {
     });
 }
 
+
 function enlargeSymbol(evt) {
-    mouseEvent = evt.type;
+    let mouseEvent = evt.type;
     let isHighlight = (mouseEvent === "mouseenter");
     sendMessages({ commandName: "highlightFeature", featureId: evt.target.parentElement.id, color: isHighlight ? "#00FFFF" : undefined });
 }

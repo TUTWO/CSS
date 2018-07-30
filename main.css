@@ -193,3 +193,8 @@ div.tab button:focus {
 #notselectDraw:hover{
     background-color: #F5F5F5;
 }
+.ui-widget-overlay {
+    background: #aaaaaa;
+    opacity: .3;
+    filter: Alpha(Opacity=30);
+}
