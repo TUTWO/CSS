@@ -36,11 +36,24 @@ let handlers =
         }
     },
     "confirmDeleteFeatures": ((evt) => {
-        sendMessages({
-            commandName: "deleteShapes",
-            featureIds: evt.featureIds
+        $('#dialog-confirm').dialog({
+            resizable: false,
+            height: 200,
+            modal: true,
+            buttons: {
+                'YES': function () {
+                    $(this).dialog('close');
+                    sendMessages({ commandName: 'deleteShapes', featureIds: evt.featureIds });
+                    $(`#${evt.featureIds}`).remove();
+                    if (!$('.add-new').length) {
+                        $('#deleteAll').css('display', 'none');
+                    }
+                },
+                'NO': function () {
+                    $(this).dialog('close');
+                }
+            }
         });
-        $(`#${evt.featureIds}`).remove();
     }),
     "initializeMap": (() => {
         sendMessages({ commandName: "setUserControlOffsets", offsetWidth: 0, offsetHeight: 0 });
