@@ -8,7 +8,7 @@ let handlers =
     "drawTypes": function addItem(data) {
         if (data.featureId) {
             var div = $(`<div class="add-new" id="${data.featureId}"></div>`).appendTo("#leftPanelDiv1");
-            var checkbox = $('<input type="checkbox" checked>').appendTo(div).on("click", showhideSymbol);
+            var checkbox = $(`<input type="checkbox" checked>`).appendTo(div).on("click", showhideSymbol);
             featureId = data.featureId.split("-");
             symbol = data.featureType;
             var label = $(`<span>${symbol}:${featureId[featureId.length - 1]}</span>`).appendTo(div).hover(enlargeSymbol);
