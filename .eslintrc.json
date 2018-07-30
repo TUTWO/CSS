@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jquery":true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2016
+    },
+    "globals": {
+        "sendMessages":true
+    },
+    "rules": {
+        "linebreak-style": [
+            "warn",
+            "windows"
+        ],
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "no-mixed-spaces-and-tabs":[0],
+        "no-useless-escape":"off",
+        "no-unused-vars":"off"
+    }
+}
