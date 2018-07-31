@@ -22,6 +22,8 @@
         ],
         "no-mixed-spaces-and-tabs":[0],
         "no-useless-escape":"off",
-        "no-unused-vars":"off"
+        "no-unused-vars":"off",
+        "no-undef":"off",
+        "no-console":"off"
     }
 }
