@@ -1,4 +1,4 @@
-//Tab标签项
+//Tab
 $(() => {
     $(".tablinks").click(function (evt) {
         $(".tabcontent").hide();
@@ -6,5 +6,4 @@ $(() => {
         $(".tablinks").removeAttr("id");
         $(this).attr("id", "active");
     });
-
 });
