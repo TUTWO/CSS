@@ -1,7 +1,20 @@
 import React from 'react';
+import SendMessages from './sendMesages.js';
 
 class Imgs extends React.Component {
-
+    constructor(props) {
+        super(props);
+        this.state = { src: '' };
+        this.drawSymbol = this.drawSymbol.bind(this);
+    }
+    drawSymbol(e) {
+        this.state.src = e.target.src;
+        SendMessages.send({
+            commandName: 'drawSymbol',
+            image: e.target.src,
+            labelStyle: e.style
+        });
+    }
     render() {
         let imgStyle = {
             cursor: 'pointer',
@@ -9,7 +22,7 @@ class Imgs extends React.Component {
             margin: '0 0 0 30px'
         };
         return (
-            <div>
+            <div onClick={this.drawSymbol}>
                 <img title="Symbol" style={imgStyle} src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABgUExURf8lJb+/v1NTU4+Pj/8MDP8WFgcHB4CAgOXl5WtraykpKfX19Z+fn9HR0f+4uP9HR//x8f+xsf8/P/9PT//AwP+vr/9ycv+Ojv+fn/9gYP/r6//X1//e3gEBAf8AAP///6tc0DoAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEzSURBVDhPlZPtkoMwCEXTNmZb2zVqNOmHwPu/5QZIbevMTnbvHxHOBALEUEX/AfohemOt8XHoiytrBe5pxFVjuhf3CnQB0YbULUuXgkUMXQkU4GqwiZPaRFNs0FzVVuDaoJ/FKpo9NkoI0Bm8PYi+xaN63NBIFgbuAX2O0353ZhcRQCY8Bq6UgYSNnA/uoAQDNDeY8icD/YhR/A7aw5ENASjimPuRgQGt1u8A3J4LUWCyOAgQMfC/AEooQIFPzoCXXFkMgGsvTyChF8Bg6ZoAAO2lAB1ylMjiopGtFrR/A7Yp3H6T4rNIcKfjpsiPa4L7Om+v+d6ofIVsKLA26q3V0O7YUGBt9WtYII0uwGtY67jhJKNS4H3cz4W5lHVgfSxMfeXqS1tf+/rDyao8vd9UAYh+AGwaavVixIFNAAAAAElFTkSuQmCC" />
                 <img title="Symbol" style={imgStyle} src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABgUExURenp6RcXF/+4uP9HR/8WFv8ODv/AwP9oaGpqav+Tk/+xsf8oKP/a2v8hIf8JCU5OTv+vr/8/P//x8f93d3p6ev+fn/9QUP/r65aWluzs7LKysv9OTv+IiAEBAf8AAP///1eKo30AAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD+SURBVDhPlZPrkoMgDEYVUKqi9VK1rfrl/d+y3HS2rjuZPT8ixjMSICTE8B+hLwdZN00th7KPKcshzEWHg66YY/oQxARkyyqMEeuSAZOIH6IwVlA6D2OiXCtUYxgHYVSQrR9FWgkVDC+ICtr41wOjUflZnDBPkKfv1pCYXKVOKKC+/h9oFQr7sELfQYfcNxqd3Q8rlMiO+n+SZyi9MGCh1yN9vE6BFgxekFjpeUtuz1OgFdILNQTd3/S+nwIJ1F5oYChNKElPgQyaKGzb9luwySi4KS7Zp3BFXrIX6ZZ5yb5MdqPYrWYPiz9utmH4luOblm97/uJYmKv3F4xA9AGneWaf23bQpQAAAABJRU5ErkJggg==" />
                 <img title="Symbol" style={imgStyle} src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADAUExURR8fH/39/fv7+////+/v7+vr6wcHBwUFBb6+vj8/Pzg4OM7Ozn9/fxAQEP7+/vPz83t7e2RkZJKSkomJifb29rOzswgICBMTE8rKyhsbGxcXFw8PDyYmJjU1NRQUFB4eHgsLCxoaGtHR0RYWFnJyckpKSt3d3QAAAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMj5SWcAAAApdFJOU/////////////////////////////////////////////////////8AUvQghwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAKFJREFUOE/tkUcSwkAMBB3BmZyDyav/vxDJO5RkOPAB92172qkc0B+GwNMPlmWVpTEOHhs0i3bkXF1McO4wQXgau47gBSOYYIrduWMIxWiQBpiZCo7RYIVR2MExGswwCmd9hgYPjMKhgbRByZ/4IYdjNIj0Je9bOEYDul2xuyeMYAKa+3tcighCsAEl+breb7Lez+gFRHFirxa+gl+GQCB6A/cRmcKxu3ogAAAAAElFTkSuQmCC" />

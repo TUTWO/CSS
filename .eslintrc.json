@@ -11,6 +11,9 @@
     "globals": {
         "sendMessages":true
     },
+    "plugins": [
+        "react"
+    ],
     "rules": {
         "linebreak-style": [
             "warn",
