@@ -83,7 +83,7 @@ $(() => {
     let drawTypes = ["drawSymbol", "drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
     getJson('config.json').then(function (response) {
         sendMessages({ "commandName": "initializeMap", "mapId": "map", "initializeConfigs": response });
-    }).catch(err => console.log(err.message));
+    }).catch(err => alert(err.message));
     
     window.addEventListener("message", reciveMessage);
     function reciveMessage(evt) {

@@ -2,31 +2,35 @@
     "env": {
         "browser": true,
         "es6": true,
-        "jquery":true
+        "jquery": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2016
+        "ecmaVersion": 2016,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true,
+            "modules": true
+        }
     },
     "globals": {
-        "sendMessages":true
+        "sendMessages": true,
+        "import": true
     },
     "plugins": [
         "react"
     ],
     "rules": {
-        "linebreak-style": [
-            "warn",
-            "windows"
-        ],
         "semi": [
             "warn",
             "always"
         ],
-        "no-mixed-spaces-and-tabs":[0],
-        "no-useless-escape":"off",
-        "no-unused-vars":"off",
-        "no-undef":"off",
-        "no-console":"off"
+        "no-mixed-spaces-and-tabs": [0],
+        "no-useless-escape": "off",
+        "no-unused-vars": "off",
+        "no-undef": "off",
+        "no-console": "off",
+        "no-unexpected-multiline":"off"
     }
 }
