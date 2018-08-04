@@ -6,12 +6,26 @@ import SendMessages from './sendMesages.js';
 class ControlTabs extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { zoom: 15, point: '77.02631,38.89214', extent: '26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524' }
+        this.state = {
+            drawTypes: '',
+            currentIndex: 0,
+            drawIndex: -1,
+            zoom: 15, point: '-77.02631, 38.89214',
+            extent: '26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524',
+            strokeColorVal: '#000000',
+            fillColorVal: '#000000',
+            strokeWidthVal: 1
+        }
         this.sendZoomCenter = this.sendZoomCenter.bind(this);
         this.getZoom = this.getZoom.bind(this);
         this.getCenter = this.getCenter.bind(this);
         this.setExtent = this.setExtent.bind(this);
         this.getExtent = this.getExtent.bind(this);
+        this.selectType = this.selectType.bind(this);
+        this.drawType = this.drawType.bind(this);
+        this.setStrockColor = this.setStrockColor.bind(this);
+        this.setFillColor = this.setFillColor.bind(this);
+        this.setStrockWidth = this.setStrockWidth.bind(this);
     }
     sendZoomCenter() {
         let [x, y] = this.state.point.split(',');
@@ -38,6 +52,67 @@ class ControlTabs extends React.Component {
     }
     getExtent(e) {
         this.state.extent = e.target.value;
+    }
+    selectType(e) {
+        let selectTypeIndex = ['select', 'lasso', 'selectAllFeatures'];
+        let num = selectTypeIndex.indexOf(e.target.id);
+        this.setState({ currentIndex: num });
+        SendMessages.send({ commandName: selectTypeIndex[num] });
+    }
+    drawType(e) {
+        let drawTypeIndex = ['drawLine', 'drawPolyline', 'drawPolygon', 'drawRectangle', 'drawSquare', 'drawPencil', 'measure', 'drawLabel', 'drawArrow', 'drawCallout'];
+        let num = drawTypeIndex.indexOf(e.target.id);
+        this.setState({ drawIndex: num });
+        this.state.drawTypes = drawTypeIndex[num];
+        SendMessages.send({
+            commandName: drawTypeIndex[num],
+            style: {
+                fillColor: this.state.fillColorVal,
+                fillOpacity: "0.5",
+                strokeColor: this.state.strokeColorVal,
+                strokeOpacity: "1",
+                strokeWidth: this.state.strokeWidthVal
+            }
+        });
+    }
+    setStrockColor(e) {
+        this.setState({ strokeColorVal: e.target.value });
+        SendMessages.send({
+            commandName: this.state.drawTypes,
+            style: {
+                fillColor: this.state.fillColorVal,
+                fillOpacity: "0.5",
+                strokeColor: this.state.strokeColorVal,
+                strokeOpacity: "1",
+                strokeWidth: this.state.strokeWidthVal
+            }
+        });
+    }
+    setFillColor(e) {
+        this.setState({ fillColorVal: e.target.value });
+        SendMessages.send({
+            commandName: this.state.drawTypes,
+            style: {
+                fillColor: this.state.fillColorVal,
+                fillOpacity: "0.5",
+                strokeColor: this.state.strokeColorVal,
+                strokeOpacity: "1",
+                strokeWidth: this.state.strokeWidthVal
+            }
+        });
+    }
+    setStrockWidth(e) {
+        this.setState({ strokeWidthVal: e.target.value });
+        SendMessages.send({
+            commandName: this.state.drawTypes,
+            style: {
+                fillColor: this.state.fillColorVal,
+                fillOpacity: "0.5",
+                strokeColor: this.state.strokeColorVal,
+                strokeOpacity: "1",
+                strokeWidth: this.state.strokeWidthVal
+            }
+        });
     }
     render() {
         let buttonStyle = {
@@ -79,7 +154,7 @@ class ControlTabs extends React.Component {
                                 <option>14</option>
                                 <option>15</option>
                             </select>
-                            <input style={buttonStyle} defaultValue='-77.02631,38.89214' onClick={this.getCenter} />
+                            <input style={buttonStyle} defaultValue='-77.02631, 38.89214' onClick={this.getCenter} />
                             <Button bsStyle='info' style={buttonStyle} onClick={this.sendZoomCenter}>Set zoom and center</Button>
                             <input style={inputStyle} defaultValue='26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524' onClick={this.getExtent} />
                             <Button bsStyle='info' style={buttonStyle} onClick={this.setExtent}>Set extent</Button>
@@ -88,29 +163,29 @@ class ControlTabs extends React.Component {
                     <Tab eventKey={2} title='Draw Shape'>
                         <div style={divStyle}>
                             <DropdownButton bsStyle='info' title='Select' id='selectType' style={buttonStyle}>
-                                <MenuItem eventKey="1" active>Select</MenuItem>
-                                <MenuItem eventKey="2">Lasso</MenuItem>
-                                <MenuItem eventKey="3">Select All</MenuItem>
+                                <MenuItem eventKey="1" id='select' className={this.state.currentIndex == 0 ? 'active' : ''} onClick={this.selectType}>Select</MenuItem>
+                                <MenuItem eventKey="2" id='lasso' className={this.state.currentIndex == 1 ? 'active' : ''} onClick={this.selectType}>Lasso</MenuItem>
+                                <MenuItem eventKey="3" id='selectAllFeatures' className={this.state.currentIndex == 2 ? 'active' : ''} onClick={this.selectType}>Select All</MenuItem>
                             </DropdownButton>
                             <DropdownButton bsStyle='info' title='Draw' id='drawType' style={buttonStyle}>
-                                <MenuItem eventKey="1">Draw Line</MenuItem>
-                                <MenuItem eventKey="2">Draw Polyline</MenuItem>
-                                <MenuItem eventKey="3">Draw Polygon</MenuItem>
-                                <MenuItem eventKey="4">Draw Rectangle</MenuItem>
-                                <MenuItem eventKey="5">Draw Square</MenuItem>
-                                <MenuItem eventKey="6">Draw Pencil</MenuItem>
-                                <MenuItem eventKey="7">Measure</MenuItem>
-                                <MenuItem eventKey="8">Draw Label</MenuItem>
-                                <MenuItem eventKey="9">Draw Arrow</MenuItem>
-                                <MenuItem eventKey="10">Draw Callout</MenuItem>
+                                <MenuItem eventKey="1" id='drawLine' className={this.state.drawIndex == 0 ? 'active' : ''} onClick={this.drawType}>Draw Line</MenuItem>
+                                <MenuItem eventKey="2" id='drawPolyline' className={this.state.drawIndex == 1 ? 'active' : ''} onClick={this.drawType}>Draw Polyline</MenuItem>
+                                <MenuItem eventKey="3" id='drawPolygon' className={this.state.drawIndex == 2 ? 'active' : ''} onClick={this.drawType}>Draw Polygon</MenuItem>
+                                <MenuItem eventKey="4" id='drawRectangle' className={this.state.drawIndex == 3 ? 'active' : ''} onClick={this.drawType}>Draw Rectangle</MenuItem>
+                                <MenuItem eventKey="5" id='drawSquare' className={this.state.drawIndex == 4 ? 'active' : ''} onClick={this.drawType}>Draw Square</MenuItem>
+                                <MenuItem eventKey="6" id='drawPencil' className={this.state.drawIndex == 5 ? 'active' : ''} onClick={this.drawType}>Draw Pencil</MenuItem>
+                                <MenuItem eventKey="7" id='measure' className={this.state.drawIndex == 6 ? 'active' : ''} onClick={this.drawType}>Measure</MenuItem>
+                                <MenuItem eventKey="8" id='drawLabel' className={this.state.drawIndex == 7 ? 'active' : ''} onClick={this.drawType}>Draw Label</MenuItem>
+                                <MenuItem eventKey="9" id='drawArrow' className={this.state.drawIndex == 8 ? 'active' : ''} onClick={this.drawType}>Draw Arrow</MenuItem>
+                                <MenuItem eventKey="10" id='drawCallout' className={this.state.drawIndex == 9 ? 'active' : ''} onClick={this.drawType}>Draw Callout</MenuItem>
                             </DropdownButton>
                             <Button bsStyle='info' style={buttonStyle}>Slice</Button>
                             <span style={buttonStyle}>Stroke: </span>
-                            <input type='color' />
+                            <input type='color' id='strokeColor' onClick={this.setStrockColor} />
                             <span style={buttonStyle}>Fill: </span>
-                            <input type='color' />
+                            <input type='color' id='fillColor' onBlur={this.setFillColor} />
                             <span style={buttonStyle}>Stroke Width: </span>
-                            <input type='number' min='1' max='10' defaultValue='1' />
+                            <input type='number' min='1' max='10' defaultValue='1' id='strokeWidth' onBlur={this.setStrockWidth} />
                         </div>
                     </Tab>
                     <Tab eventKey={3} title='Draw Symbol'>
