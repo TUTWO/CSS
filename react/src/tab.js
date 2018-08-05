@@ -1,8 +1,11 @@
 import React from 'react';
 import { Tabs, Tab, Button, DropdownButton, MenuItem } from 'react-bootstrap';
-import Imgs from './img.js';
+import SymbolImg from './symbolImg.js';
 import DataTransmission from './dataTransmission.js';
 import Controls from './controls.js'
+import Others from './others.js'
+import PinTab from './pinTab.js';
+import ExtentZoom from './extentZoom.js';
 
 class ControlTabs extends React.Component {
     constructor(props) {
@@ -11,55 +14,17 @@ class ControlTabs extends React.Component {
             drawTypes: '',
             currentIndex: 0,
             drawIndex: -1,
-            zoom: 15, point: '-77.02631, 38.89214',
-            extent: '26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524',
             strokeColorVal: '#000000',
             fillColorVal: '#000000',
             strokeWidthVal: 1,
             isGray: false
         }
-        this.sendZoomCenter = this.sendZoomCenter.bind(this);
-        this.getZoom = this.getZoom.bind(this);
-        this.getCenter = this.getCenter.bind(this);
-        this.setExtent = this.setExtent.bind(this);
-        this.getExtent = this.getExtent.bind(this);
         this.selectType = this.selectType.bind(this);
         this.drawType = this.drawType.bind(this);
         this.setStrockColor = this.setStrockColor.bind(this);
         this.setFillColor = this.setFillColor.bind(this);
         this.setStrockWidth = this.setStrockWidth.bind(this);
         this.handelIsGray = this.handelIsGray.bind(this);
-    };
-
-    sendZoomCenter() {
-        let [x, y] = this.state.point.split(',');
-        DataTransmission.send({
-            commandName: 'setExtent',
-            zoomLevel: this.state.zoom,
-            centerPoint: {
-                x: +x,
-                y: +y
-            }
-        });
-    };
-
-    getZoom(e) {
-        this.state.zoom = e.target.value;
-    };
-
-    getCenter(e) {
-        this.state.point = e.target.value;
-    };
-
-    setExtent() {
-        DataTransmission.send({
-            commandName: 'setExtent',
-            extent: this.state.extent
-        });
-    };
-
-    getExtent(e) {
-        this.state.extent = e.target.value;
     };
 
     selectType(e) {
@@ -150,40 +115,13 @@ class ControlTabs extends React.Component {
             margin: '0 0 0 30px',
             width: '350px'
         };
-        let radioStyle = {
-            margin: '0 0 0 10px'
-        };
-        let textareaStyle = {
-            margin: '10px 0 0 30px'
-        };
-
+        
         return (
             <div>
                 <Tabs defaultActiveKey={3} id='uncontrolled-tab-example'>
                     <Tab eventKey={1} title='Extent|Zoom'>
                         <div style={divStyle}>
-                            <Button bsStyle='info' style={buttonStyle} >Zoom to all shapes</Button>
-                            <select style={buttonStyle} defaultValue={15} onClick={this.getZoom}>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                                <option>11</option>
-                                <option>12</option>
-                                <option>13</option>
-                                <option>14</option>
-                                <option>15</option>
-                            </select>
-                            <input style={buttonStyle} defaultValue='-77.02631, 38.89214' onClick={this.getCenter} />
-                            <Button bsStyle='info' style={buttonStyle} onClick={this.sendZoomCenter}>Set zoom and center</Button>
-                            <input style={inputStyle} defaultValue='26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524' onClick={this.getExtent} />
-                            <Button bsStyle='info' style={buttonStyle} onClick={this.setExtent}>Set extent</Button>
+                            <ExtentZoom />
                         </div>
                     </Tab>
                     <Tab eventKey={2} title='Draw Shape'>
@@ -216,23 +154,17 @@ class ControlTabs extends React.Component {
                     </Tab>
                     <Tab eventKey={3} title='Draw Symbol'>
                         <div style={divStyle}>
-                            <Imgs />
+                            <SymbolImg />
                         </div>
                     </Tab>
                     <Tab eventKey={4} title='Draw Pin'>
                         <div style={divStyle}>
-                            <span style={buttonStyle}>Popup Content Type: </span>
-                            <input style={radioStyle} type="radio" name="choose" />Image
-                            <input style={radioStyle} type="radio" name="choose" />KeyValuePair
-                            <input style={radioStyle} type="radio" name="choose" />Html
-                            <input style={radioStyle} type="radio" name="choose" defaultChecked />None
-                            <input type="text" style={buttonStyle} />
-                            <Button bsStyle='info' style={buttonStyle}>Draw Pin Marker</Button>
+                            <PinTab />
                         </div>
                     </Tab>
                     <Tab eventKey={5} title='WKT Shapes'>
                         <div style={divStyle}>
-                            <span style={buttonStyle} >Shape WKT: </span>
+                            <span style={buttonStyle}>Shape WKT: </span>
                             <input />
                             <span style={buttonStyle}>Label WKT: </span>
                             <input />
@@ -252,21 +184,7 @@ class ControlTabs extends React.Component {
                         </div>
                     </Tab>
                     <Tab eventKey={8} title='Others'>
-                        <div>
-                            <Button bsStyle='info' style={buttonStyle} onClick={this.handelIsGray} >{this.state.isGray ? 'Change Back' : 'Change To Gray'}</Button>
-                            <input style={buttonStyle} />
-                            <Button bsStyle='info' style={buttonStyle} >Update Loading Logo</Button>
-                            <input style={buttonStyle} type='number' step='0.1' min='0.1' max='1' defaultValue='1' />
-                            <Button bsStyle='info' style={buttonStyle} >Set Transparent</Button>
-                            <Button bsStyle='info' style={buttonStyle} >Reset Transparent</Button>
-                            <textarea style={textareaStyle}></textarea>
-                            <select style={buttonStyle}>
-                                <option>panZoomBarStyle</option>
-                                <option>snapping</option>
-                                <option>pinGroupZoomLevel</option>
-                            </select>
-                            <Button bsStyle='info' style={buttonStyle} >Update Map Config</Button>
-                        </div>
+                        <Others />
                     </Tab>
                 </Tabs>
             </div>

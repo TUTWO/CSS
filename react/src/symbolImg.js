@@ -1,7 +1,7 @@
 import React from 'react';
-import SendMessages from './dataTransmission.js';
+import dataTransmission from './dataTransmission.js';
 
-class Imgs extends React.Component {
+class symbolImg extends React.Component {
     constructor(props) {
         super(props);
         this.state = { src: '' };
@@ -9,7 +9,7 @@ class Imgs extends React.Component {
     }
     drawSymbol(e) {
         this.state.src = e.target.src;
-        SendMessages.send({
+        dataTransmission.send({
             commandName: 'drawSymbol',
             image: e.target.src,
             labelStyle: e.style
@@ -34,4 +34,4 @@ class Imgs extends React.Component {
 }
 
 
-export default Imgs;
+export default symbolImg;

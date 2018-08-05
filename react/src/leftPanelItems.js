@@ -11,7 +11,7 @@ function AddItems(e) {
         if (drawTypes.indexOf(name) > -1) {
             name = 'drawTypes';
         }
-        handeler[name] && handeler[name](e);
+        handler[name] && handler[name](e);
     }
 }
 
@@ -38,7 +38,7 @@ let imgStyles = {
     margin: '10px 0 0 0'
 };
 
-let handeler = {
+let handler = {
     'drawTypes': function (e) {
         if (e.data.data.featureId) {
             if (document.getElementById('deleteAll')) {

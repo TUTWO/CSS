@@ -1,7 +1,7 @@
 import React from 'react';
 import ControlTabs from './tab.js';
 import DataTransmission from './dataTransmission.js';
-import AddItems from './addItems.js';
+import leftPanelItems from './leftPanelItems.js';
 
 class Initializelayout extends React.Component {
     render() {
@@ -46,7 +46,7 @@ class Initializelayout extends React.Component {
                         <span style={spanStyle}>Legend Items:</span>
                     </div>
                     <div id='leftPanelDiv1'>
-                        {window.addEventListener('message', AddItems)}
+                        {window.addEventListener('message', leftPanelItems)}
                     </div>
                 </div>
             </div>
