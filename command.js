@@ -35,7 +35,7 @@ let handlers =
             });
         }
     },
-    "confirmDeleteFeatures": ((evt) => {
+    'confirmDeleteFeatures': ((evt) => {
         $('#dialog-confirm').dialog({
             resizable: false,
             height: 200,

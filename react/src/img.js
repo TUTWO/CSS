@@ -1,5 +1,5 @@
 import React from 'react';
-import SendMessages from './sendMesages.js';
+import SendMessages from './dataTransmission.js';
 
 class Imgs extends React.Component {
     constructor(props) {

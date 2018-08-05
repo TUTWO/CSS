@@ -1,7 +1,8 @@
 import React from 'react';
 import { Tabs, Tab, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import Imgs from './img.js';
-import SendMessages from './sendMesages.js';
+import DataTransmission from './dataTransmission.js';
+import Controls from './controls.js'
 
 class ControlTabs extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class ControlTabs extends React.Component {
             extent: '26.453037695312474,41.20112467348213,27.936191992187474,41.89179281406524',
             strokeColorVal: '#000000',
             fillColorVal: '#000000',
-            strokeWidthVal: 1
+            strokeWidthVal: 1,
+            isGray: false
         }
         this.sendZoomCenter = this.sendZoomCenter.bind(this);
         this.getZoom = this.getZoom.bind(this);
@@ -26,10 +28,12 @@ class ControlTabs extends React.Component {
         this.setStrockColor = this.setStrockColor.bind(this);
         this.setFillColor = this.setFillColor.bind(this);
         this.setStrockWidth = this.setStrockWidth.bind(this);
-    }
+        this.handelIsGray = this.handelIsGray.bind(this);
+    };
+
     sendZoomCenter() {
         let [x, y] = this.state.point.split(',');
-        SendMessages.send({
+        DataTransmission.send({
             commandName: 'setExtent',
             zoomLevel: this.state.zoom,
             centerPoint: {
@@ -37,34 +41,40 @@ class ControlTabs extends React.Component {
                 y: +y
             }
         });
-    }
+    };
+
     getZoom(e) {
         this.state.zoom = e.target.value;
-    }
+    };
+
     getCenter(e) {
         this.state.point = e.target.value;
-    }
+    };
+
     setExtent() {
-        SendMessages.send({
+        DataTransmission.send({
             commandName: 'setExtent',
             extent: this.state.extent
         });
-    }
+    };
+
     getExtent(e) {
         this.state.extent = e.target.value;
-    }
+    };
+
     selectType(e) {
         let selectTypeIndex = ['select', 'lasso', 'selectAllFeatures'];
         let num = selectTypeIndex.indexOf(e.target.id);
         this.setState({ currentIndex: num });
-        SendMessages.send({ commandName: selectTypeIndex[num] });
-    }
+        DataTransmission.send({ commandName: selectTypeIndex[num] });
+    };
+
     drawType(e) {
         let drawTypeIndex = ['drawLine', 'drawPolyline', 'drawPolygon', 'drawRectangle', 'drawSquare', 'drawPencil', 'measure', 'drawLabel', 'drawArrow', 'drawCallout'];
         let num = drawTypeIndex.indexOf(e.target.id);
         this.setState({ drawIndex: num });
         this.state.drawTypes = drawTypeIndex[num];
-        SendMessages.send({
+        DataTransmission.send({
             commandName: drawTypeIndex[num],
             style: {
                 fillColor: this.state.fillColorVal,
@@ -74,10 +84,12 @@ class ControlTabs extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    }
+
+    };
+
     setStrockColor(e) {
         this.setState({ strokeColorVal: e.target.value });
-        SendMessages.send({
+        DataTransmission.send({
             commandName: this.state.drawTypes,
             style: {
                 fillColor: this.state.fillColorVal,
@@ -87,10 +99,11 @@ class ControlTabs extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    }
+    };
+
     setFillColor(e) {
         this.setState({ fillColorVal: e.target.value });
-        SendMessages.send({
+        DataTransmission.send({
             commandName: this.state.drawTypes,
             style: {
                 fillColor: this.state.fillColorVal,
@@ -100,10 +113,11 @@ class ControlTabs extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    }
+    };
+
     setStrockWidth(e) {
         this.setState({ strokeWidthVal: e.target.value });
-        SendMessages.send({
+        DataTransmission.send({
             commandName: this.state.drawTypes,
             style: {
                 fillColor: this.state.fillColorVal,
@@ -113,7 +127,18 @@ class ControlTabs extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    }
+    };
+
+    handelIsGray() {
+        this.setState({
+            isGray: !this.state.isGray
+        });
+        DataTransmission.send({
+            commandName: 'changeGrayScale',
+            isGray: !this.state.isGray
+        });
+    };
+
     render() {
         let buttonStyle = {
             margin: '0 0 0 30px'
@@ -131,6 +156,7 @@ class ControlTabs extends React.Component {
         let textareaStyle = {
             margin: '10px 0 0 30px'
         };
+
         return (
             <div>
                 <Tabs defaultActiveKey={3} id='uncontrolled-tab-example'>
@@ -181,7 +207,7 @@ class ControlTabs extends React.Component {
                             </DropdownButton>
                             <Button bsStyle='info' style={buttonStyle}>Slice</Button>
                             <span style={buttonStyle}>Stroke: </span>
-                            <input type='color' id='strokeColor' onClick={this.setStrockColor} />
+                            <input type='color' id='strokeColor' onBlur={this.setStrockColor} />
                             <span style={buttonStyle}>Fill: </span>
                             <input type='color' id='fillColor' onBlur={this.setFillColor} />
                             <span style={buttonStyle}>Stroke Width: </span>
@@ -216,9 +242,7 @@ class ControlTabs extends React.Component {
                     </Tab>
                     <Tab eventKey={6} title='Controls Visibility'>
                         <div style={divStyle}>
-                            <input type='checkbox' defaultChecked style={buttonStyle} />Layer Switcher
-                            <input type='checkbox' defaultChecked style={buttonStyle} />Current Location
-                            <input type='checkbox' defaultChecked style={buttonStyle} />Pan Zoom Bar
+                            <Controls />
                         </div>
                     </Tab>
                     <Tab eventKey={7} title='GPS'>
@@ -229,7 +253,7 @@ class ControlTabs extends React.Component {
                     </Tab>
                     <Tab eventKey={8} title='Others'>
                         <div>
-                            <Button bsStyle='info' style={buttonStyle} >Change To Gary</Button>
+                            <Button bsStyle='info' style={buttonStyle} onClick={this.handelIsGray} >{this.state.isGray ? 'Change Back' : 'Change To Gray'}</Button>
                             <input style={buttonStyle} />
                             <Button bsStyle='info' style={buttonStyle} >Update Loading Logo</Button>
                             <input style={buttonStyle} type='number' step='0.1' min='0.1' max='1' defaultValue='1' />
@@ -247,7 +271,7 @@ class ControlTabs extends React.Component {
                 </Tabs>
             </div>
         );
-    }
+    };
 }
 
 export default ControlTabs;
