@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import DataTransmission from './dataTransmission.js';
+import { commander } from './command.js';
 
 class Others extends React.Component {
     constructor(props) {
@@ -10,15 +10,17 @@ class Others extends React.Component {
         }
         this.handelIsGray = this.handelIsGray.bind(this);
     }
+
     handelIsGray() {
         this.setState({
             isGray: !this.state.isGray
         });
-        DataTransmission.send({
+        commander.send({
             commandName: 'changeGrayScale',
             isGray: !this.state.isGray
         });
-    };
+    }
+
     render() {
         let buttonStyle = {
             margin: '0 0 0 30px'

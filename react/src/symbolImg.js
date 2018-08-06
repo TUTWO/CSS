@@ -1,5 +1,5 @@
 import React from 'react';
-import dataTransmission from './dataTransmission.js';
+import { commander } from './command.js';
 
 class symbolImg extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class symbolImg extends React.Component {
     }
     drawSymbol(e) {
         this.state.src = e.target.src;
-        dataTransmission.send({
+        commander.send({
             commandName: 'drawSymbol',
             image: e.target.src,
             labelStyle: e.style

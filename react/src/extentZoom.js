@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import DataTransmission from './dataTransmission.js'
+import { commander } from './command.js'
 
 class ExtentZoom extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             zoom: 15, point: '-77.02631, 38.89214',
@@ -15,10 +15,10 @@ class ExtentZoom extends React.Component {
         this.setExtent = this.setExtent.bind(this);
         this.getExtent = this.getExtent.bind(this);
     }
-    
+
     sendZoomCenter() {
         let [x, y] = this.state.point.split(',');
-        DataTransmission.send({
+        commander.send({
             commandName: 'setExtent',
             zoomLevel: this.state.zoom,
             centerPoint: {
@@ -37,7 +37,7 @@ class ExtentZoom extends React.Component {
     }
 
     setExtent() {
-        DataTransmission.send({
+        commander.send({
             commandName: 'setExtent',
             extent: this.state.extent
         });
@@ -55,25 +55,18 @@ class ExtentZoom extends React.Component {
             margin: '0 0 0 30px',
             width: '350px'
         };
+        const number = [];
+        for (let i = 0; i < 15; i++) {
+            number[i] = i + 1;
+        }
+        const listItems = number.map((number) =>
+            <option key={number}>{number}</option>
+        )
         return (
             <div>
                 <Button bsStyle='info' style={buttonStyle} >Zoom to all shapes</Button>
                 <select style={buttonStyle} defaultValue={15} onClick={this.getZoom}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                    <option>11</option>
-                    <option>12</option>
-                    <option>13</option>
-                    <option>14</option>
-                    <option>15</option>
+                    {listItems}
                 </select>
                 <input style={buttonStyle} defaultValue='-77.02631, 38.89214' onClick={this.getCenter} />
                 <Button bsStyle='info' style={buttonStyle} onClick={this.sendZoomCenter}>Set zoom and center</Button>

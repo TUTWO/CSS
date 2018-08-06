@@ -13,10 +13,10 @@ class PinTab extends React.Component {
             <div>
                 <span style={buttonStyle}>Popup Content Type: </span>
                 <input style={radioStyle} type="radio" name="choose" />Image
-                            <input style={radioStyle} type="radio" name="choose" />KeyValuePair
-                            <input style={radioStyle} type="radio" name="choose" />Html
-                            <input style={radioStyle} type="radio" name="choose" defaultChecked />None
-                            <input type="text" style={buttonStyle} />
+                <input style={radioStyle} type="radio" name="choose" />KeyValuePair
+                <input style={radioStyle} type="radio" name="choose" />Html
+                <input style={radioStyle} type="radio" name="choose" defaultChecked />None
+                <input type="text" style={buttonStyle} />
                 <Button bsStyle='info' style={buttonStyle}>Draw Pin Marker</Button>
             </div>
         )

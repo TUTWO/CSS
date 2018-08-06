@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './layout.js';
+import Layout from './layout.js';
+import { addItems } from './command.js';
 
-
-ReactDOM.render(<App />, document.getElementById('index'));
+ReactDOM.render(<Layout />, document.getElementById('index'));
+window.addEventListener('message', addItems);

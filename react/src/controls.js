@@ -1,5 +1,5 @@
 import React from 'react';
-import DataTransmission from './dataTransmission.js';
+import Command from './command.js';
 
 class Controls extends React.Component {
     constructor(props){
@@ -8,7 +8,7 @@ class Controls extends React.Component {
     };
 
     hideControls(e){
-        DataTransmission.send({
+        Command.send({
             commandName: 'setControlsVisibility',
             controls: [{
                 name: e.target.id,
