@@ -1,33 +1,11 @@
 import React from 'react';
 import LeftPanel from './leftPanel.js';
+import ReactDOM from 'react-dom';
 
 class Command {
     handler;
-
     constructor() {
         this.handler = {
-            // 'drawTypes': function (e) {
-            // if (e.data.data.featureId) {
-            //     itemsInfo.push(e.data.data);
-            //     commander.send({
-            //         commandName: 'addLabelToShape',
-            //         labelStyle: {
-            //             label: e.data.data.featureType + "label",
-            //             fontSize: "14px",
-            //             fontFamily: "Arial",
-            //             fontWeight: "Bold",
-            //             fontStyle: "normal",
-            //             fontColor: "rgb(0,255,0)",
-            //             labelOutlineColor: "rgb(255,255,255)",
-            //             labelOutlineWidth: 2
-            //         },
-            //         featureIds: [e.data.data.featureId]
-            //     });
-            // }
-            // },
-            // 'initializeMap': function (e) {
-            //     commander.send({ commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 });
-            // },
             'confirmDeleteFeatures': function (e) {
                 if (confirm('Are you sure to delete those items?')) {
                     let idIndex = [];
@@ -46,34 +24,61 @@ class Command {
                 }
             }
         };
-
     }
+    
     send(data) {
         postMessage({ topic: 'request', data }, "*");
+    }
+
+    receive(e) {
+        if (e.data.data) {
+            let name = e.data.data.commandName;
+            let drawTypes = ["drawSymbol", "drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
+            if (drawTypes.indexOf(name) > -1) {
+                name = 'drawTypes';
+            }
+            if (name === 'initializeMap') {
+                commander.handler['initializeMap'] = (e) => {
+                    commander.send({ commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 });
+                }
+            } else if (name === 'drawTypes') {
+                if (e.data.data.featureId) {
+                    // <LeftPanel item={e.data.data} />
+                    ReactDOM.render(<LeftPanel item={e.data.data} />, document.getElementById('leftPanelDiv'));
+                }
+            }
+            commander.handler[name] && commander.handler[name](e);
+    
+        }
+        return
     }
 
 }
 
 let commander = new Command();
-global.itemsInfo = new Array();
 
-function addItems(e) {
-    if (e.data.data) {
-        let name = e.data.data.commandName;
-        let drawTypes = ["drawSymbol", "drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
-        if (drawTypes.indexOf(name) > -1) {
-            name = 'drawTypes';
-        }
-        if (name === 'initializeMap'){
-            commander.handler['initializeMap'] = (e) => {
-                commander.send({ commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 });
-            }
-        }
-        commander.handler[name] && commander.handler[name](e);
-        <LeftPanel item={e.data.data}/>
-    }
-}
+// function receive(e) {
+//     if (e.data.data) {
+//         let name = e.data.data.commandName;
+//         let drawTypes = ["drawSymbol", "drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
+//         if (drawTypes.indexOf(name) > -1) {
+//             name = 'drawTypes';
+//         }
+//         if (name === 'initializeMap') {
+//             commander.handler['initializeMap'] = (e) => {
+//                 commander.send({ commandName: 'setUserControlOffsets', offsetWidth: 0, offsetHeight: 0 });
+//             }
+//         } else if (name === 'drawTypes') {
+//             if (e.data.data.featureId) {
+//                 // <LeftPanel item={e.data.data} />
+//                 // ReactDOM.render(<LeftPanel item={e.data.data} />, document.getElementById('leftPanelDiv'));
+//                 LeftPanel.setItemsInfo(e.data.data);
+//             }
+//         }
+//         commander.handler[name] && commander.handler[name](e);
 
-// export default commander;
+//     }
+//     return
+// }
 
-export { commander, addItems };
+export { commander };
