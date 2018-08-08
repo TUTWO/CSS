@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { commander } from './command.js'
+import commander from './command.js'
 
 class ExtentZoom extends React.Component {
     constructor(props) {
@@ -57,7 +57,7 @@ class ExtentZoom extends React.Component {
         };
         const number = [];
         for (let i = 0; i < 15; i++) {
-            number[i] = i + 1;
+            number.push(i + 1);
         }
         const listItems = number.map((number) =>
             <option key={number}>{number}</option>

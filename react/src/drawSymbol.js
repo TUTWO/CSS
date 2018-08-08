@@ -1,12 +1,13 @@
 import React from 'react';
-import { commander } from './command.js';
+import commander from './command.js';
 
-class symbolImg extends React.Component {
+class DrawSymbol extends React.Component {
     constructor(props) {
         super(props);
         this.state = { src: '' };
         this.drawSymbol = this.drawSymbol.bind(this);
     }
+
     drawSymbol(e) {
         this.state.src = e.target.src;
         commander.send({
@@ -15,6 +16,7 @@ class symbolImg extends React.Component {
             labelStyle: e.style
         });
     }
+    
     render() {
         let imgStyle = {
             cursor: 'pointer',
@@ -34,4 +36,4 @@ class symbolImg extends React.Component {
 }
 
 
-export default symbolImg;
+export default DrawSymbol;

@@ -1,37 +1,76 @@
 import React from 'react';
-import ListItems from './listItems.js';
-import { commander } from './command.js';
-
+import ListItem from './listItem.js';
+import commander from './command.js';
 
 class LeftPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            itemsInfos: []
+            itemsInfo: []
         };
         this.deleteAllItems = this.deleteAllItems.bind(this);
         this.deleteItems = this.deleteItems.bind(this);
+        commander.handler['drawTypes'] = (data) => {
+            this.state.itemsInfo.push(data);
+            this.setState({ itemsInfo: this.state.itemsInfo });
+            commander.send({
+                commandName: 'addLabelToShape',
+                labelStyle: {
+                    label: data.featureType + "label",
+                    fontSize: "14px",
+                    fontFamily: "Arial",
+                    fontWeight: "Bold",
+                    fontStyle: "normal",
+                    fontColor: "rgb(0,255,0)",
+                    labelOutlineColor: "rgb(255,255,255)",
+                    labelOutlineWidth: 2
+                },
+                featureIds: [data.featureId]
+            });
+            commander.send({
+                commandName: "updateLabelStatus",
+                features: data.featuresInfos
+            });
+        }
+        commander.handler['confirmDeleteFeatures'] = (data) => {
+            if (confirm('Are you sure to delete those items?')) {
+                let idIndex = [];
+                commander.send({ commandName: 'deleteShapes', featureIds: data.featureIds });
+                for (let item of this.state.itemsInfo) {
+                    for (let id of data.featureIds) {
+                        if (item.featureId == id) {
+                            idIndex.push(item);
+                        }
+                    }
+                }
+                for (let idItem of idIndex) {
+                    let itemIndex = this.state.itemsInfo.indexOf(idItem);
+                    if (itemIndex > -1) {
+                        this.state.itemsInfo.splice(itemIndex, 1);
+                        this.setState({ itemsInfo: this.state.itemsInfo });
+                    }
+                }
+            }
+        }
     }
 
     deleteAllItems() {
         if (confirm('Are you sure to delete All items ?')) {
-            for (let item of this.state.itemsInfos) {
+            for (let item of this.state.itemsInfo) {
                 commander.send({ commandName: 'deleteShapes', featureIds: [item.featureId] });
             }
-            this.setState({ itemsInfos: [] });
+            this.setState({ itemsInfo: [] });
         }
     }
+
     deleteItems(id) {
         if (confirm('Are you sure to delete This items ?')) {
-            let itemIndex;
-            for (let item of this.state.itemsInfos) {
-                if (item.featureId === id) {
-                    itemIndex = this.state.itemsInfos.indexOf(item);
-                }
+            let itemIndex = this.state.itemsInfo.findIndex((item) => item.featureId === id);
+            if (itemIndex) {
+                this.state.itemsInfo.splice(itemIndex, 1);
+                this.setState({ itemsInfo: this.state.itemsInfo });
+                commander.send({ commandName: 'deleteShapes', featureIds: [id] });
             }
-            this.state.itemsInfos.splice(itemIndex, 1);
-            this.setState({ itemsInfos: this.state.itemsInfos });
-            commander.send({ commandName: 'deleteShapes', featureIds: [id] });
         }
     }
 
@@ -60,21 +99,15 @@ class LeftPanel extends React.Component {
             margin: '10px 0 0 0',
             display: 'none'
         }
-        if (this.props.item) {
-            commander.handler["drawTypes"] = () => {
-                this.state.itemsInfos.push(this.props.item);
-                this.setState({ itemsInfos: this.state.itemsInfos });
-            }
-            commander.handler[name] && commander.handler[name](e);
-        }
-        const element = this.state.itemsInfos.map((item, index) =>
-            <ListItems item={item} key={index} onDelete={this.deleteItems} />
+
+        const element = this.state.itemsInfo.map((item, index) =>
+            <ListItem item={item} key={index} onDelete={this.deleteItems} />
         )
         return (
             <div>
                 <div id='leftPanelHead' style={divStyle}>
                     <span style={spanStyle}>Legend Items:</span>
-                    <img id="deleteAll" onClick={this.deleteAllItems} style={this.state.itemsInfos.length > 0 ? showImgStyle : hideImgStyle} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfiBgcIAhXUNwrhAAAAgklEQVQ4y6WUyQ3AIAwER3mlPvqglq2INmgn+UQICDhaxbywZ8XhA04ylUIiskShkjkhcz1LW1yNyVDbZidRR1Qo3XYl0RAvkAbHLNEUTSuntrjigKKz38EQX0k+8FiyzZA8fC2Z8INfZl7JfLT5rWbizNIwi88ub7uB7Ba1h4A5Zm48IyvwiWCRJwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wNi0wN1QwODowMjoyMSswMjowMLOyTbsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDYtMDdUMDg6MDI6MjErMDI6MDDC7/UHAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAABJRU5ErkJggg=="></img>
+                    <img id="deleteAll" onClick={this.deleteAllItems} style={this.state.itemsInfo.length > 0 ? showImgStyle : hideImgStyle} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfiBgcIAhXUNwrhAAAAgklEQVQ4y6WUyQ3AIAwER3mlPvqglq2INmgn+UQICDhaxbywZ8XhA04ylUIiskShkjkhcz1LW1yNyVDbZidRR1Qo3XYl0RAvkAbHLNEUTSuntrjigKKz38EQX0k+8FiyzZA8fC2Z8INfZl7JfLT5rWbizNIwi88ub7uB7Ba1h4A5Zm48IyvwiWCRJwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOC0wNi0wN1QwODowMjoyMSswMjowMLOyTbsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTgtMDYtMDdUMDg6MDI6MjErMDI6MDDC7/UHAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAABJRU5ErkJggg=="></img>
                 </div>
                 <div id='leftPanelItem'>
                     {element}

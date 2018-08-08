@@ -1,7 +1,7 @@
 import React from 'react';
-import { commander } from './command.js';
+import commander from './command.js';
 
-class ListItems extends React.Component {
+class ListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,8 +12,8 @@ class ListItems extends React.Component {
         this.shrinkItems = this.shrinkItems.bind(this);
         this.deleteItems = this.deleteItems.bind(this);
         this.zoomToItems = this.zoomToItems.bind(this);
-
     }
+    
     hideItems(e) {
         let commandName = e.target.checked ? 'showFeature' : 'hideFeature';
         commander.send({ commandName, featureIds: [e.target.parentElement.id] });
@@ -63,4 +63,4 @@ class ListItems extends React.Component {
     }
 }
 
-export default ListItems;
+export default ListItem;

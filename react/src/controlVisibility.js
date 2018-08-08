@@ -5,7 +5,7 @@ class Controls extends React.Component {
     constructor(props){
         super(props);
         this.hideControls=this.hideControls.bind(this);
-    };
+    }
 
     hideControls(e){
         Command.send({
@@ -15,7 +15,7 @@ class Controls extends React.Component {
                 visible: e.target.checked
             }]
         });
-    };
+    }
 
     render() {
         let inputStyle = {
@@ -28,7 +28,7 @@ class Controls extends React.Component {
                 <input id='PanZoomBar' type='checkbox' defaultChecked style={inputStyle} onClick={this.hideControls} />Pan Zoom Bar
             </div>
         )
-    };
+    }
 }
 
 export default Controls;

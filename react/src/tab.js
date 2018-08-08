@@ -1,11 +1,11 @@
 import React from 'react';
 import { Tabs, Tab, Button } from 'react-bootstrap';
-import SymbolImg from './symbolImg.js';
-import Controls from './controls.js'
+import DrawSymbol from './drawSymbol.js';
+import ControlVisibility from './controlVisibility.js'
 import Others from './others.js'
 import PinTab from './pinTab.js';
 import ExtentZoom from './extentZoom.js';
-import DrawShapes from './shapes.js';
+import DrawShape from './drawShape.js';
 
 class ControlTabs extends React.Component {
     render() {
@@ -26,12 +26,12 @@ class ControlTabs extends React.Component {
                     </Tab>
                     <Tab eventKey={2} title='Draw Shape'>
                         <div style={divStyle}>
-                            <DrawShapes />
+                            <DrawShape />
                         </div>
                     </Tab>
                     <Tab eventKey={3} title='Draw Symbol'>
                         <div style={divStyle}>
-                            <SymbolImg />
+                            <DrawSymbol />
                         </div>
                     </Tab>
                     <Tab eventKey={4} title='Draw Pin'>
@@ -51,7 +51,7 @@ class ControlTabs extends React.Component {
                     </Tab>
                     <Tab eventKey={6} title='Controls Visibility'>
                         <div style={divStyle}>
-                            <Controls />
+                            <ControlVisibility />
                         </div>
                     </Tab>
                     <Tab eventKey={7} title='GPS'>

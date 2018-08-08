@@ -1,8 +1,8 @@
 import React from 'react';
 import { DropdownButton, MenuItem, Button } from 'react-bootstrap';
-import { commander } from './command.js';
+import commander from './command.js';
 
-class DrawShapes extends React.Component {
+class DrawShape extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +24,7 @@ class DrawShapes extends React.Component {
         let num = selectTypeIndex.indexOf(e.target.id);
         this.setState({ currentIndex: num });
         commander.send({ commandName: selectTypeIndex[num] });
-    };
+    }
 
     drawType(e) {
         let drawTypeIndex = ['drawLine', 'drawPolyline', 'drawPolygon', 'drawRectangle', 'drawSquare', 'drawPencil', 'measure', 'drawLabel', 'drawArrow', 'drawCallout'];
@@ -42,7 +42,7 @@ class DrawShapes extends React.Component {
             }
         });
 
-    };
+    }
 
     setStrockColor(e) {
         this.setState({ strokeColorVal: e.target.value });
@@ -56,7 +56,7 @@ class DrawShapes extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    };
+    }
 
     setFillColor(e) {
         this.setState({ fillColorVal: e.target.value });
@@ -70,7 +70,7 @@ class DrawShapes extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    };
+    }
 
     setStrockWidth(e) {
         this.setState({ strokeWidthVal: e.target.value });
@@ -84,7 +84,7 @@ class DrawShapes extends React.Component {
                 strokeWidth: this.state.strokeWidthVal
             }
         });
-    };
+    }
 
     handelIsGray() {
         this.setState({
@@ -94,7 +94,8 @@ class DrawShapes extends React.Component {
             commandName: 'changeGrayScale',
             isGray: !this.state.isGray
         });
-    };
+    }
+    
     render() {
         let buttonStyle = {
             margin: '0 0 0 30px'
@@ -130,4 +131,4 @@ class DrawShapes extends React.Component {
     }
 }
 
-export default DrawShapes;
+export default DrawShape;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { commander } from './command.js';
+import commander from './command.js';
 
 class Others extends React.Component {
     constructor(props) {

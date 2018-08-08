@@ -80,11 +80,12 @@ $(() => {
         });
     }
 
-    let drawTypes = ["drawSymbol", "drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
     getJson('config.json').then(function (response) {
         sendMessages({ "commandName": "initializeMap", "mapId": "map", "initializeConfigs": response });
     }).catch(err => alert(err.message));
     
+    let drawTypes = ["drawSymbol", "drawLine", "drawPolyline", "drawPolygon", "drawRectangle", "drawSquare", "drawPencil", "measure", "drawLabel", "drawArrow", "drawCallout"];
+
     window.addEventListener("message", reciveMessage);
     function reciveMessage(evt) {
         if (evt.data) {
