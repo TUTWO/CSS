@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script> -->
+
+</head>
+
+<body>
+    Username:
+    <input type="text" id="user_name">
+    <br> Password :
+    <input type="password" id="user_password">
+    <button id="login">submit</button>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login').click(() => {
+                $.post('/authenticate', {
+                    name: $('#user_name').val(),
+                    password: $('#user_password').val()
+                },
+                function (user, status) {
+                    localStorage.setItem($('#user_name').val(), JSON.stringify(user));
+                    location.href = 'map?' + 'user=' + $('#user_name').val();
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>

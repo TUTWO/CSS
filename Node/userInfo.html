@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <button id="display" style="float:inherit;">Display</button>
+    <div id='showName' style="text-align: center"></div>
+    <div id="showInfo" style="text-align: center; display: none;"></div>
+    <script type="text/javascript">
+        var json = localStorage.getItem(GetRequest());
+        var user = JSON.parse(json);
+        $('#showName').html('<h1>Hello ' + user.name + '</h1>');
+        var text1 = $('<h3>Name: ' + user.name + '</h4>').appendTo('#showInfo');
+        var text2 = $('<h3>Password: ' + user.password + '</h4>').appendTo('#showInfo');
+        var text3 = $('<h3>Profession: ' + user.profession + '</h4>').appendTo('#showInfo');
+        var text4 = $('<h3>ID: ' + user.id + '</h4>').appendTo('#showInfo');
+        $('#display').click(() => {
+            $('#showInfo').toggle();
+        })
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                theRequest = str.split("=")[1];
+            }
+            return theRequest;
+        }
+
+    </script>
+</body>
+
+</html>
