@@ -20,10 +20,12 @@
                     name: $('#user_name').val(),
                     password: $('#user_password').val()
                 },
-                function (user, status) {
-                    localStorage.setItem($('#user_name').val(), JSON.stringify(user));
-                    location.href = 'map?' + 'user=' + $('#user_name').val();
-                })
+                    function (user, status) {
+                        localStorage.setItem($('#user_name').val(), JSON.stringify(user));
+                        $.post('/map',{'user':user}),function(){}
+                        // alert(JSON.stringify(user));
+                        // location.href = 'map?' + 'user=' + $('#user_name').val();
+                    })
             })
         })
     </script>
