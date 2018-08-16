@@ -22,7 +22,7 @@ $(() => {
         $(this).attr('id', 'selectDraw');
         $('#selectType').hide();
     });
-
+    
     let drawTypeName;
     $('#drawType li').click(function () {
         drawTypeName = drawType[$(this).index()];
