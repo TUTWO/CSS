@@ -12,15 +12,15 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
 app.use((req, res, next) => {
-    if (req.path === '/authenticate') {
-        if (req.headers.token) {
-            console.log('test: ' + req.originalUrl);
-            return next();
-        }
-    } else {
-        console.log('test: ' + req.originalUrl);
-        return next();
-    }
+    // if (req.path === '/authenticate') {
+    //     if (req.headers.token) {
+    //         console.log('test: ' + req.originalUrl);
+    //         return next();
+    //     }
+    // } else {
+    console.log('test: ' + req.originalUrl);
+    return next();
+    // }
 });
 
 
@@ -53,19 +53,18 @@ app.post('/getToken', bodyParser.json(), function (req, res) {
 app.use(express.static('dist'));
 
 app.post('/authenticate', bodyParser.json(), function (req, res) {
-    // res.send('OK');
-    res.location(__dirname + '/dist/index.html');
     res.send('OK');
+    // res.location(__dirname + '/dist/index.html');
     // res.redirect(__dirname + '/dist/index.html');
 })
 
 app.get('/map', urlencodedParser, function (req, res) {
-    // if (req.query.user) {
-    return res.sendFile(__dirname + '/dist/index.html');
-    // }
-    // else {
-    //     return res.status(401).send('invaild password');
-    // }
+    if (req.query.user) {
+        return res.sendFile(__dirname + '/dist/index.html');
+    }
+    else {
+        return res.status(401).send('invaild password');
+    }
 })
 
 app.get('/node_modules/jquery/dist/jquery.min.js', function (req, res) {

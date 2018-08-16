@@ -30,7 +30,7 @@
                         url: "/authenticate",
                         headers: { 'token': JSON.parse(localStorage.getItem($('#user_name').val())) }
                     }).then((res) => {
-                        // location.href = 'map?' + 'user=' + $('#user_name').val();
+                        location.href = 'map?' + 'user=' + $('#user_name').val();
                     })
                 })
             })
