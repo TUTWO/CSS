@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './layout.js';
+import {Initializelayout} from './layout.js';
 
-ReactDOM.render(<Layout />, document.getElementById('index'));
+ReactDOM.render(<Initializelayout />, document.getElementById('index'));
 

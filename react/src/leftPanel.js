@@ -6,13 +6,49 @@ class LeftPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            itemsInfo: []
+            itemsInfo: [],
+            labelsInfo: []
         };
         this.deleteAllItems = this.deleteAllItems.bind(this);
         this.deleteItems = this.deleteItems.bind(this);
+
+        if (this.props.features) {
+            this.setState({
+                itemsInfo: this.props.shapes,
+                labelsInfo: this.props.labels
+            });
+            // commander.send()
+            for (let i = 0; i < this.state.itemsInfo.length; i++) {
+                commander.send({
+                    commandName: this.state.itemsInfo[i].commandName,
+                    featureModels: [{
+                        type: this.state.itemsInfo[i].type,
+                        style: {
+                            fillcolor: this.state.itemsInfo[i].style.fillcolor,
+                            fillOpacity: this.state.itemsInfo[i].style.fillOpacity,
+                            strokeColor: this.state.itemsInfo[i].style.strokeColor,
+                            strokeDashstyle: this.state.itemsInfo[i].style.strokeDashstyle,
+                            strokeOpacity: this.state.itemsInfo[i].style.strokeOpacity,
+                            strokeWidth: this.state.itemsInfo[i].style.strokeWidth
+                        },
+                        wkt: this.itemsInfo[i].wkt,
+                        labelStyle: {
+                            label: this.state.labelsInfo[i].featureType + 'label',
+                            font: "normal 32px Verdana",
+                            fontColor: "lightgreen",
+                            labelOutlineColor: "white",
+                            labelOutlineWidth: 2
+                        },
+                        labelWkt: this.state.labelsInfo[i].labelWkt
+                    }]
+                })
+            }
+        }
+
         commander.handler['drawTypes'] = (data) => {
             this.state.itemsInfo.push(data);
             this.setState({ itemsInfo: this.state.itemsInfo });
+            global.saveInfos = this.state.itemsInfo;
             commander.send({
                 commandName: 'addLabelToShape',
                 labelStyle: {
@@ -48,6 +84,17 @@ class LeftPanel extends React.Component {
                     if (itemIndex > -1) {
                         this.state.itemsInfo.splice(itemIndex, 1);
                         this.setState({ itemsInfo: this.state.itemsInfo });
+                    }
+                }
+            }
+        }
+        commander.handler['addLabelToShape'] = (data) => {
+            if (data.items) {
+                for (let i = 0; i < global.saveInfos.length; i++) {
+                    if (global.saveInfos[i].featureId === data.items[0].featureId) {
+                        this.state.labelsInfo.push(data);
+                        this.setState({ labelsInfo: this.state.labelsInfo });
+                        global.saveLabels = this.state.labelsInfo;
                     }
                 }
             }

@@ -13,7 +13,7 @@ class ListItem extends React.Component {
         this.deleteItems = this.deleteItems.bind(this);
         this.zoomToItems = this.zoomToItems.bind(this);
     }
-    
+
     hideItems(e) {
         let commandName = e.target.checked ? 'showFeature' : 'hideFeature';
         commander.send({ commandName, featureIds: [e.target.parentElement.id] });

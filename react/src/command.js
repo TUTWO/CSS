@@ -27,4 +27,5 @@ class Command {
 }
 let commander = new Command();
 window.addEventListener('message', commander.receive);
+
 export default commander;
